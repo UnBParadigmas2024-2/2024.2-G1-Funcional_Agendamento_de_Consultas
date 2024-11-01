@@ -33,18 +33,19 @@ iniciarCadastro = do
 adicionarDados :: IO ()
 adicionarDados = do
     nome <- coletarNome
+    senha <- coletarSenha
     cpf <- coletarCPF
     idade <- coletarIdade
     telefone <- coletarTelefone
     email <- coletarEmail
-    senha <- coletarSenha
 
-    let novoDado = "Nome: " ++ nome ++ ", CPF: " ++ cpf ++ ", Idade: " ++ idade ++ ", Telefone: " ++ telefone ++ ", E-mail: " ++ email ++ ", Senha: " ++ senha ++ "\n"
-    
-    -- Verifica se o arquivo existe, se não existir, cria um novo
+    let novoDado = nome ++ "|" ++ senha ++ "|" ++ cpf ++ "|" ++ idade ++ "|" ++ telefone ++ "|" ++ email ++ "\n"
+    let cabecalho = "Nome|Senha|CPF|Idade|Telefone|Email\n"
+
+    -- Verifica se o arquivo existe, se não existir, cria um novo com o cabeçalho
     arquivoExistente <- doesFileExist "pacientes.txt"
     if not arquivoExistente
-        then writeFile "pacientes.txt" novoDado  -- Cria o arquivo com os dados do paciente
+        then writeFile "pacientes.txt" (cabecalho ++ novoDado)  -- Cria o arquivo com o cabeçalho e dados do paciente
         else appendFile "pacientes.txt" novoDado  -- Adiciona ao arquivo existente
     
     putStrLn "Paciente cadastrado com sucesso!"

@@ -20,5 +20,14 @@ autenticar :: String -> String -> IO Bool
 autenticar cpf senha = do
     conteudo <- readFile "pacientes.txt"
     let linhas = lines conteudo
-    let usuarioValido = any (\linha -> cpf `isInfixOf` linha && senha `isInfixOf` linha) linhas
+    -- Validação baseada na estrutura `Nome|Senha|CPF|Idade|Telefone|Email`
+    let usuarioValido = any (\linha -> let campos = wordsWhen (=='|') linha
+                                       in length campos >= 3 && campos !! 1 == senha && campos !! 2 == cpf) linhas
     return usuarioValido
+
+-- Função auxiliar para dividir uma string pelo caractere `|`
+wordsWhen :: (Char -> Bool) -> String -> [String]
+wordsWhen p s = case dropWhile p s of
+                    "" -> []
+                    s' -> w : wordsWhen p s''
+                          where (w, s'') = break p s'

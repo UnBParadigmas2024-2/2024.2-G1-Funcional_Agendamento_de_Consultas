@@ -2,6 +2,7 @@ module Login (login) where
 
 import System.IO (hFlush, stdout)
 import Data.List (isInfixOf)
+import Paciente (submenuPaciente)
 
 -- Função de login
 login :: IO ()
@@ -12,7 +13,9 @@ login = do
     senha <- getLine
     autenticado <- autenticar cpf senha
     if autenticado
-        then putStrLn "Login realizado com sucesso!"
+        then do
+            putStrLn "Login realizado com sucesso!"
+            submenuPaciente cpf  -- Redireciona ao menu do paciente após login
         else putStrLn "CPF ou senha incorretos. Tente novamente."
 
 -- Função para autenticar CPF e senha

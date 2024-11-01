@@ -1,6 +1,5 @@
 module Paciente (submenuPaciente) where
 
--- import VisualizacaoPaciente (visualizarDados)
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
 
@@ -19,11 +18,12 @@ submenuPaciente cpf = do
     case escolha of
 --        "1" -> visualizarDados cpf
 --        "2" -> alterarDados cpf
-        "3" -> apagarConta cpf
---        "4" -> agendarConsulta cpf
---        "5" -> visualizarConsultas cpf
-        "0" -> putStrLn "Saindo do sistema..."
+        "3" -> do
+            apagarConta cpf  -- Chama a função para apagar a conta
+            putStrLn "Conta apagada com sucesso!"
+        "4" -> putStrLn "Funcionalidade de agendamento ainda não implementada."
+        "5" -> putStrLn "Funcionalidade de visualização de consultas ainda não implementada."
+        "6" -> putStrLn "Saindo do sistema..."
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             submenuPaciente cpf
-

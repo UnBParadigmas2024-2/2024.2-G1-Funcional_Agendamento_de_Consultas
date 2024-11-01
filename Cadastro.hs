@@ -1,6 +1,7 @@
 module Cadastro (iniciarCadastro) where
 
-import System.IO (hFlush, stdout)
+import System.IO (hFlush, stdout, appendFile, writeFile)
+import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf)
 
@@ -40,7 +41,12 @@ adicionarDados = do
 
     let novoDado = "Nome: " ++ nome ++ ", CPF: " ++ cpf ++ ", Idade: " ++ idade ++ ", Telefone: " ++ telefone ++ ", E-mail: " ++ email ++ ", Senha: " ++ senha ++ "\n"
     
-    appendFile "pacientes.txt" novoDado
+    -- Verifica se o arquivo existe, se não existir, cria um novo
+    arquivoExistente <- doesFileExist "pacientes.txt"
+    if not arquivoExistente
+        then writeFile "pacientes.txt" novoDado  -- Cria o arquivo com os dados do paciente
+        else appendFile "pacientes.txt" novoDado  -- Adiciona ao arquivo existente
+    
     putStrLn "Paciente cadastrado com sucesso!"
 
 -- Função para coletar o nome com pelo menos nome e sobrenome
@@ -77,9 +83,13 @@ coletarCPF = do
 -- Função para verificar duplicidade de CPF
 verificarDuplicidadeCPF :: String -> IO Bool
 verificarDuplicidadeCPF cpf = do
-    conteudo <- readFile "pacientes.txt"
-    let linhas = lines conteudo
-    return $ any (\linha -> cpf `isInfixOf` linha) linhas
+    arquivoExistente <- doesFileExist "pacientes.txt"
+    if not arquivoExistente
+        then return False  -- Se o arquivo não existir, o CPF não pode estar cadastrado
+        else do
+            conteudo <- readFile "pacientes.txt"
+            let linhas = lines conteudo
+            return $ any (\linha -> cpf `isInfixOf` linha) linhas
 
 -- Função para coletar a idade com validação de dois dígitos
 coletarIdade :: IO String

@@ -24,7 +24,7 @@ iniciarCadastro = do
     escolha <- getLine
     case escolha of
         "1" -> adicionarDados  -- Vai para o cadastro de paciente
-        "2" -> putStrLn "Voltando ao Menu Principal..."
+        "2" -> adicionarDadosMedicos
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             iniciarCadastro
@@ -49,6 +49,24 @@ adicionarDados = do
         else appendFile "pacientes.txt" novoDado  -- Adiciona ao arquivo existente
     
     putStrLn "Paciente cadastrado com sucesso!"
+	
+-- Função para adicionar dados do médico ao arquivo
+adicionarDadosMedicos :: IO ()
+adicionarDadosMedicos = do
+    nomeMedico <- coletarNome
+    crm <- coletarCRM
+    especialidade <- coletarEspecialidade
+
+    let novoMedico = nomeMedico ++ "|" ++ crm ++ "|" ++ especialidade ++ "\n"
+    let cabecalho = "Nome|CRM|Especialidade\n"
+
+    -- Verifica se o arquivo existe; se não, cria um novo com o cabeçalho
+    arquivoExistente <- doesFileExist "medicos.txt"
+    if not arquivoExistente
+        then writeFile "medicos.txt" (cabecalho ++ novoMedico)  -- Cria o arquivo com cabeçalho e dados do médico
+        else appendFile "medicos.txt" novoMedico  -- Adiciona ao arquivo existente
+    
+    putStrLn "Médico cadastrado com sucesso!"
 
 -- Função para coletar o nome com pelo menos nome e sobrenome
 coletarNome :: IO String
@@ -66,6 +84,50 @@ validarNomeCompleto :: String -> Bool
 validarNomeCompleto nome =
     let palavras = words nome
     in length palavras >= 2 && all (\p -> length p > 0) palavras
+	
+-- Função para coletar o CRM no formato "CRM/XX 123456" e verificar duplicidade
+coletarCRM :: IO String
+coletarCRM = do
+    putStrLn "Digite o CRM do médico (formato: CRM/XX 123456, ex.: CRM/SP 123456):"
+    crm <- getLine
+    crmExiste <- verificarDuplicidadeCRM crm
+    if validarFormatoCRM crm && not crmExiste
+        then return crm
+        else do
+            if crmExiste
+                then putStrLn "CRM já cadastrado. Insira um CRM diferente."
+                else putStrLn "CRM inválido. Certifique-se de que segue o formato correto (CRM/XX 123456)."
+            coletarCRM
+		
+-- Função para validar o formato do CRM
+validarFormatoCRM :: String -> Bool
+validarFormatoCRM crm =
+    let regex = mkRegex "^CRM/[A-Z]{2} [0-9]{6}$"  -- Expressão regular para "CRM/XX 123456"
+    in case matchRegex regex crm of
+        Just _ -> True
+        Nothing -> False
+		
+-- Função para verificar duplicidade de CRM
+verificarDuplicidadeCRM :: String -> IO Bool
+verificarDuplicidadeCRM crm = do
+    arquivoExistente <- doesFileExist "medicos.txt"
+    if not arquivoExistente
+        then return False
+        else do
+            conteudo <- readFile "medicos.txt"
+            let linhas = lines conteudo
+            return $ any (\linha -> crm `isInfixOf` linha) linhas
+
+-- Função para coletar a especialidade do médico
+coletarEspecialidade :: IO String
+coletarEspecialidade = do
+    putStrLn "Digite a especialidade do médico:"
+    especialidade <- getLine
+    if not (null especialidade)
+        then return especialidade
+        else do
+            putStrLn "Especialidade inválida. Tente novamente."
+            coletarEspecialidade
 
 -- Função para coletar o CPF com validação de 11 dígitos e verificar duplicidade
 coletarCPF :: IO String

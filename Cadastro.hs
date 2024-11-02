@@ -54,10 +54,11 @@ adicionarDados = do
 adicionarDadosMedicos :: IO ()
 adicionarDadosMedicos = do
     nomeMedico <- coletarNome
+    senha <- coletarSenha
     crm <- coletarCRM
     especialidade <- coletarEspecialidade
 
-    let novoMedico = nomeMedico ++ "|" ++ crm ++ "|" ++ especialidade ++ "\n"
+    let novoMedico = nomeMedico ++ "|" ++ senha ++ "|" ++ crm ++ "|" ++ especialidade ++ "\n"
     let cabecalho = "Nome|CRM|Especialidade\n"
 
     -- Verifica se o arquivo existe; se não, cria um novo com o cabeçalho

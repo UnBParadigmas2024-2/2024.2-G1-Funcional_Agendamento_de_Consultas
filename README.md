@@ -39,14 +39,14 @@ Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcioname
 ### Instalação 
 **Linguagens**: Haskell<br>
 **Tecnologias**: Sistema Operacional Linux, Compilador GHC (Glasgow Haskell Compiler), Editor de Texto Nano, Terminal Linux<br>
-- Para instalação do projeto, acesse [esse link](passoapassoinstalacao.md) e leia o passo a passo.
+- Para instalação do projeto, acesse [esse link](documentacao/passoapassoinstalacao.md) e leia o passo a passo.
 
 ### Uso 
 ### Manual
 **Principais Comandos**: ``ghc -o SistemaGestao Main.hs Cadastro.hs`` ;  ``./SistemaGestao`` 
 
 #### Como usar o projeto
-1. Para conseguir rodar o projeto, acesse [esse link](passoapasso-uso.md)
+1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
 2. Para aprender como utilizar o sistema em si acesse [esse link]
 
 

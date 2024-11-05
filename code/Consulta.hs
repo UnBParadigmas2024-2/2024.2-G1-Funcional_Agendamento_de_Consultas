@@ -4,7 +4,7 @@ import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition)
-import Util(validadorCpf, validadorData)
+import Util(validadorCpf, validadorData, validadorFormatoCRM)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -179,10 +179,15 @@ buscarConsulta = do
                 putStrLn "Data inválida"
                 buscarConsulta
         "2" -> do
-            putStr "Informe o crm do médico: "
+            putStr "Informe o crm do médico (CRM/XX 123456): "
             hFlush stdout
             crmMed <- getLine
-            buscar crmMed
+            if validadorFormatoCRM crmMed
+                then buscar crmMed
+            else do 
+                putStrLn "CRM inválido"
+                buscarConsulta
+            
         "3" -> do
             putStr "Informe o CPF do paciente: "
             hFlush stdout

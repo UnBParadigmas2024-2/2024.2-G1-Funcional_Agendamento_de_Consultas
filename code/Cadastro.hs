@@ -195,7 +195,7 @@ coletarEmail = do
 -- Função para coletar a senha do paciente
 coletarSenha :: IO String
 coletarSenha = do
-    putStrLn "Digite a senha para o cadastro:"
+    putStrLn "Digite a senha para o usuário:"
     senha <- getLine
     if length senha >= 6
         then return senha

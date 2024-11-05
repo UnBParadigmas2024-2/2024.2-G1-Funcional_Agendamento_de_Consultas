@@ -4,6 +4,7 @@ import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition)
+import Util(validadorCpf, validadorData)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -163,24 +164,36 @@ buscarConsulta = do
     putStrLn "1. Data"
     putStrLn "2. Médico"
     putStrLn "3. Paciente"
+    putStrLn "0. Voltar"
     hFlush stdout
     escolha <- getLine
     case escolha of
         "1" -> do 
-            putStr "Informe a data:"
+            putStr "Informe a data (DD/MM/AAAA):"
             hFlush stdout
             dataConsulta <- getLine
-            buscar dataConsulta
+
+            if validadorData dataConsulta
+                then buscar dataConsulta
+            else do
+                putStrLn "Data inválida"
+                buscarConsulta
         "2" -> do
             putStr "Informe o crm do médico: "
             hFlush stdout
             crmMed <- getLine
             buscar crmMed
         "3" -> do
-            putStr "Informe o cpf do paciente: "
+            putStr "Informe o CPF do paciente: "
             hFlush stdout
             cpf <- getLine
-            buscar cpf
+
+            if validadorCpf cpf
+                then buscar cpf
+            else do 
+                putStrLn "CPF inválido"
+                buscarConsulta
+        "0" -> putStrLn "Voltando..."
         _   -> do 
             putStr "Opção inválida. Tente novamente."
             buscarConsulta

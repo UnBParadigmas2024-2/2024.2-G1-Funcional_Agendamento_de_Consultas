@@ -1,28 +1,24 @@
+module Consulta (submenuConsulta) where
 
-cadastroConsulta :: IO
+import System.IO (hFlush, stdout)
+
+submenuConsulta :: IO ()
+submenuConsulta = do
+    putStrLn "\nMenu de Consultas"
+    putStrLn "1. Cadastrar consulta"
+    putStrLn "2. Buscar consulta"
+    
+    putStr "Escolha uma opção: "
+    hFlush stdout
+    escolha <- getLine
+    case escolha of
+        "1" -> cadastroConsulta 
+        "2" -> putStrLn "Buscar consulta"  -- Você pode implementar a função correspondente aqui.
+        _   -> do
+            putStrLn "Opção inválida. Tente novamente."
+            submenuConsulta  -- Chama novamente o submenu para o usuário tentar novamente.
+
+cadastroConsulta :: IO ()
 cadastroConsulta = do
-    
-    putStrLn "Informe o CPF do paciente:"
-    cpfPaciente <- getLine
-
-    putStrLn "Informe o CRM do médico:"
-    crm <- getLine
-
-    putStrLn "Informe a Data:"
-    dataConsuta <- getLine
-
-    putStrLn "Informe a Hora:"
-    horaConsuta <- getLine
-
-    putStrLn "Informe o status da consulta (agendada, concluída, cancelada):"
-    statusConsuta <- getLine
-
-    
-    --hFlush stdout
-    -- escolha <- getLine
-    -- case escolha of
-    --     "1" -> adicionarDados  -- Vai para o cadastro de paciente
-    --     "2" -> adicionarDadosMedicos
-    --     _   -> do
-    --         putStrLn "Opção inválida. Tente novamente."
-    --         iniciarCadastro
+    putStrLn "Cadastrar consulta"
+    -- Aqui você pode adicionar a lógica para cadastrar a consulta.

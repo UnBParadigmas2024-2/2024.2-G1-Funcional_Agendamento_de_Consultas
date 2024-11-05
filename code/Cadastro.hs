@@ -72,7 +72,7 @@ adicionarDadosMedicos = do
 -- Função para coletar o nome com pelo menos nome e sobrenome
 coletarNome :: IO String
 coletarNome = do
-    putStrLn "Digite o nome completo do paciente (nome e sobrenome):"
+    putStrLn "Digite o nome completo (nome e sobrenome):"
     nome <- getLine
     if validarNomeCompleto nome
         then return nome
@@ -195,7 +195,7 @@ coletarEmail = do
 -- Função para coletar a senha do paciente
 coletarSenha :: IO String
 coletarSenha = do
-    putStrLn "Digite a senha do paciente:"
+    putStrLn "Digite a senha para o cadastro:"
     senha <- getLine
     if length senha >= 6
         then return senha

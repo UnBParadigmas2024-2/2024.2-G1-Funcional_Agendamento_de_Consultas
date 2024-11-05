@@ -1,9 +1,9 @@
 module Consulta (submenuConsulta) where
 
-import System.IO (hFlush, stdout)
+import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
-import Data.List (isInfixOf)
+import Data.List (isInfixOf, partition)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -16,7 +16,7 @@ submenuConsulta = do
     escolha <- getLine
     case escolha of
         "1" -> cadastroConsulta 
-        "2" -> putStrLn "Buscar consulta"  
+        "2" -> buscarConsulta
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             submenuConsulta  -- Chama novamente o submenu para o usuário tentar novamente.
@@ -150,3 +150,39 @@ validarFormatoCRM crm =
     in case matchRegex regex crm of
         Just _ -> True
         Nothing -> False
+
+buscar :: String -> IO ()
+buscar val = do
+    conteudo <- readFile "consultas.txt"
+    let (linhasApagadas, dados) = partition (\linha -> val `isInfixOf` linha) (lines conteudo)
+    mapM_ putStrLn linhasApagadas
+
+buscarConsulta :: IO ()
+buscarConsulta = do
+    putStrLn "\nBuscar por:"
+    putStrLn "1. Data"
+    putStrLn "2. Médico"
+    putStrLn "3. Paciente"
+    hFlush stdout
+    escolha <- getLine
+    case escolha of
+        "1" -> do 
+            putStr "Informe a data:"
+            hFlush stdout
+            dataConsulta <- getLine
+            buscar dataConsulta
+        "2" -> do
+            putStr "Informe o crm do médico: "
+            hFlush stdout
+            crmMed <- getLine
+            buscar crmMed
+        "3" -> do
+            putStr "Informe o cpf do paciente: "
+            hFlush stdout
+            cpf <- getLine
+            buscar cpf
+        _   -> do 
+            putStr "Opção inválida. Tente novamente."
+            buscarConsulta
+
+

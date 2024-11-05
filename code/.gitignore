@@ -1,0 +1,54 @@
+# Arquivos de build do Cabal
+/dist-newstyle/
+/dist/
+/cabal.sandbox.config
+/cabal.sandbox.config.*
+/.cabal
+/cabal.project.local
+/cabal.project.local.*
+/.pkgdb/
+/.stack-work/
+
+# Resultados de build do Stack
+/.stack-work/
+/.stack-root/
+/dist/
+
+# Arquivos de configuração do Stack e do Cabal
+cabal.project.local
+cabal.project.local.*
+*.setup-config
+
+# Arquivos de binários e compilados
+*.hi
+*.o
+*.dyn_hi
+*.dyn_o
+*.prof
+*.aux
+*.hp
+*.eventlog
+
+# Test coverage, profiling e relatórios
+*.tix
+.hpc/
+/*.prof
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.t
+*.log
+
+# Arquivos de IDEs (ex: VSCode, IntelliJ)
+*.swp
+*~
+.project
+*.sublime-workspace
+*.sublime-project
+/.idea/
+*.vscode/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db

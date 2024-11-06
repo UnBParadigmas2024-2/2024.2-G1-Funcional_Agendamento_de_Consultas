@@ -4,34 +4,34 @@ import System.IO (hFlush, stdout, appendFile, writeFile)
 import System.Directory (doesFileExist)
 import Data.List (isInfixOf)
 
--- Eu tenho que receber como parâmetro a string do CRM, assim que receber eu tenho que printar apenas onde o CRM aparecer, a mesma coisa com o CPF do paciente
-
--- Função para exibir o conteúdo dos arquivos
+-- Função para exibir o conteúdo dos arquivos filtrando pelas linhas que contêm a string CRM
 exibirDados :: String -> IO ()
-exibirDados crm = do
-    exibirDadosPacientes crm
-    exibirDadosMedicos crm
+exibirDados key = do
+    exibirDadosPacientes key
+    exibirDadosMedicos key
 
--- Função para exibir os dados dos pacientes
+-- Função para exibir os dados dos pacientes filtrando pelas linhas que contêm a string CRM
 exibirDadosPacientes :: String -> IO ()
-exibirDadosPacientes crm = do
+exibirDadosPacientes key = do
     putStrLn "\nDados dos Pacientes:"
-    putStrLn crm
     arquivoExistente <- doesFileExist "pacientes.txt"
     if arquivoExistente
         then do
             conteudo <- readFile "pacientes.txt"
-            putStrLn conteudo
+            let linhasComCRM = filter (isInfixOf key) (lines conteudo)
+            mapM_ putStrLn linhasComCRM
+            putStrLn "\n"
         else putStrLn "Arquivo de pacientes não encontrado."
 
--- Função para exibir os dados dos médicos
+-- Função para exibir os dados dos médicos filtrando pelas linhas que contêm a string CRM
 exibirDadosMedicos :: String -> IO ()
-exibirDadosMedicos crm = do
+exibirDadosMedicos key = do
     putStrLn "\nDados dos Médicos:"
-    putStrLn crm
     arquivoExistente <- doesFileExist "medicos.txt"
     if arquivoExistente
         then do
             conteudo <- readFile "medicos.txt"
-            putStrLn conteudo
+            let linhasComCRM = filter (isInfixOf key) (lines conteudo)
+            mapM_ putStrLn linhasComCRM
+            putStrLn "\n"
         else putStrLn "Arquivo de médicos não encontrado."

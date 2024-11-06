@@ -17,7 +17,7 @@ submenuMedico crm = do
     escolha <- getLine
     case escolha of
         "1" -> do --putStrLn "Funcionalidade de visualização de dados do médico ainda não implementada."
-            exibirDados exibirDadosMedicos
+            exibirDados crm
             putStrLn "Dados exibidos com sucesso!"
         "2" -> do
             apagarConta crm  -- Chama a função para apagar a conta

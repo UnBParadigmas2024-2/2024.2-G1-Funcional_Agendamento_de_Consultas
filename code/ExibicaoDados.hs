@@ -1,4 +1,4 @@
-module ExibicaoDados (exibirDados) where
+module ExibicaoDados (exibirDados, exibirDadosPacientes, exibirDadosMedicos) where
 
 import System.IO (hFlush, stdout, appendFile, writeFile)
 import System.Directory (doesFileExist)

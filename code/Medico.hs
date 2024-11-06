@@ -2,7 +2,7 @@ module Medico (submenuMedico) where
 
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
-import ExibicaoDados (exibirDados)
+import ExibicaoDados (exibirDadosMedicos)
 
 submenuMedico :: String -> IO ()
 submenuMedico crm = do
@@ -17,8 +17,8 @@ submenuMedico crm = do
     escolha <- getLine
     case escolha of
         "1" -> do --putStrLn "Funcionalidade de visualização de dados do médico ainda não implementada."
-            exibirDados crm
-            putStrLn "Dados exibidos com sucesso!"
+            exibirDadosMedicos crm
+            --putStrLn "Dados exibidos com sucesso!"
         "2" -> do
             apagarConta crm  -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"

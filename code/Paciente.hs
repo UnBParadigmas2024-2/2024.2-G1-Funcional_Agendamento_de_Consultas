@@ -2,6 +2,7 @@ module Paciente (submenuPaciente) where
 
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
+import ExibicaoDados (exibirDadosPacientes)
 
 submenuPaciente :: String -> IO ()
 submenuPaciente cpf = do
@@ -16,7 +17,8 @@ submenuPaciente cpf = do
     hFlush stdout
     escolha <- getLine
     case escolha of
---        "1" -> visualizarDados cpf
+        "1" -> do
+            exibirDadosPacientes cpf
 --        "2" -> alterarDados cpf
         "3" -> do
             apagarConta cpf  -- Chama a função para apagar a conta

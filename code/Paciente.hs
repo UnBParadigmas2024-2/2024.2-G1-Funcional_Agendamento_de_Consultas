@@ -2,13 +2,13 @@ module Paciente (submenuPaciente) where
 
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
-import ExibicaoDados (exibirDadosPacientes)
+import ExibicaoDados (exibirDadosPacientes, atualizarDadosPaciente)
 
 submenuPaciente :: String -> IO ()
 submenuPaciente cpf = do
     putStrLn "\nMenu do Paciente"
     putStrLn "1. Visualizar meus dados"
-    putStrLn "2. Alterar meus dados"
+    putStrLn "2. Atualizar meus dados"
     putStrLn "3. Apagar minha conta"
     putStrLn "4. Agendar consultas"
     putStrLn "5. Visualizar minhas consultas agendadas"
@@ -19,7 +19,10 @@ submenuPaciente cpf = do
     case escolha of
         "1" -> do
             exibirDadosPacientes cpf
---        "2" -> alterarDados cpf
+            submenuPaciente cpf
+        "2" -> do
+            atualizarDadosPaciente cpf
+            submenuPaciente cpf  -- Retorna ao submenu após atualizar os dados
         "3" -> do
             apagarConta cpf  -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"

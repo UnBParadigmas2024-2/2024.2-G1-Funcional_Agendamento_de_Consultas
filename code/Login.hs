@@ -45,7 +45,7 @@ realizarLoginMedico = do
     if autenticado
         then do
             putStrLn "Login realizado com sucesso!"
-            submenuMedico crm  -- Redireciona ao menu do paciente após login
+            submenuMedico crm -- Redireciona ao menu do paciente após login
         else putStrLn "CRM ou senha incorretos. Tente novamente."
 
 -- Função para autenticar CPF e senha de paciente

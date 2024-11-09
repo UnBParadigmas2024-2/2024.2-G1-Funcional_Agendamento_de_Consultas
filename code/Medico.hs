@@ -2,6 +2,7 @@ module Medico (submenuMedico) where
 
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
+import Consulta (buscarConsulta)
 
 submenuMedico :: String -> IO ()
 submenuMedico crm = do
@@ -19,7 +20,7 @@ submenuMedico crm = do
         "2" -> do
             apagarConta crm  -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"
-        "3" -> putStrLn "Funcionalidade de visualização de agenda ainda não implementada."
+        "3" -> buscarConsulta crm --putStrLn "Funcionalidade de visualização de agenda ainda não implementada."
         "4" -> putStrLn "Funcionalidade de desmarcação de consultas ainda não implementada."
         "5" -> putStrLn "Saindo do sistema..."
         _   -> do

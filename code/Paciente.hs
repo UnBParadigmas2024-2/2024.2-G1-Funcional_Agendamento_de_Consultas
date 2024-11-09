@@ -2,6 +2,7 @@ module Paciente (submenuPaciente) where
 
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
+import Consulta (cadastroConsulta, buscarConsulta)
 
 submenuPaciente :: String -> IO ()
 submenuPaciente cpf = do
@@ -21,8 +22,12 @@ submenuPaciente cpf = do
         "3" -> do
             apagarConta cpf  -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"
-        "4" -> putStrLn "Funcionalidade de agendamento ainda não implementada."
-        "5" -> putStrLn "Funcionalidade de visualização de consultas ainda não implementada."
+        "4" -> do 
+            cadastroConsulta cpf
+            submenuPaciente cpf
+        "5" -> do 
+            buscarConsulta cpf
+            submenuPaciente cpf
         "6" -> putStrLn "Saindo do sistema..."
         _   -> do
             putStrLn "Opção inválida. Tente novamente."

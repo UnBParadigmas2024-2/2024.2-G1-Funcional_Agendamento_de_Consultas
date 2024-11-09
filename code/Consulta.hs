@@ -1,4 +1,4 @@
-module Consulta (submenuConsulta) where
+module Consulta (submenuConsulta, cadastroConsulta, buscarConsulta) where
 
 import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
@@ -16,28 +16,28 @@ submenuConsulta = do
     hFlush stdout
     escolha <- getLine
     case escolha of
-        "1" -> cadastroConsulta 
-        "2" -> buscarConsulta
+        --"1" -> cadastroConsulta 
+        --"2" -> buscarConsulta
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             submenuConsulta  -- Chama novamente o submenu para o usuário tentar novamente.
          
-cadastroConsulta :: IO ()
-cadastroConsulta = do
+cadastroConsulta :: String -> IO ()
+cadastroConsulta cpfPaciente = do
     putStrLn "Cadastrar Consulta"
 
-    cpfPaciente <- coletarCPF  
-    pacienteExiste <- verificarDuplicidadeCPF cpfPaciente
-    if not pacienteExiste then do 
-        putStrLn "Paciente não cadastrado. Verifique o CPF."
-        cadastroConsulta
-        else return ()
+    -- cpfPaciente <- coletarCPF  
+    -- pacienteExiste <- verificarDuplicidadeCPF cpfPaciente
+    -- if not pacienteExiste then do 
+    --     putStrLn "Paciente não cadastrado. Verifique o CPF."
+    --     cadastroConsulta
+    --     else return ()
 
     crmMedico <- coletarCRM  
     medicoExiste <- verificarDuplicidadeCRM crmMedico
     if not medicoExiste then do 
         putStrLn "Médico não cadastrado. Verifique o CRM."
-        cadastroConsulta
+        cadastroConsulta cpfPaciente
         else return ()
 
     dataConsulta <- coletarDataConsulta  
@@ -152,18 +152,26 @@ validarFormatoCRM crm =
         Just _ -> True
         Nothing -> False
 
-buscar :: String -> IO ()
-buscar val = do
+buscar :: String -> String -> IO ()
+buscar val1 val2 = do
     conteudo <- readFile "consultas.txt"
-    let (linhasApagadas, dados) = partition (\linha -> val `isInfixOf` linha) (lines conteudo)
-    mapM_ putStrLn linhasApagadas
+    exibeCabecalho
+    let (linhas, dados) = partition (\linha -> val1 `isInfixOf` linha && val2 `isInfixOf` linha) (lines conteudo)
+    mapM_ putStrLn linhas
 
-buscarConsulta :: IO ()
-buscarConsulta = do
+buscarTodos :: String -> IO ()
+buscarTodos val = do
+    conteudo <- readFile "consultas.txt"
+    exibeCabecalho
+    let (linhas, dados) = partition (\linha -> val `isInfixOf` linha) (lines conteudo)
+    mapM_ putStrLn linhas
+
+buscarConsulta :: String -> IO ()
+buscarConsulta cpf = do
     putStrLn "\nBuscar por:"
     putStrLn "1. Data"
     putStrLn "2. Médico"
-    putStrLn "3. Paciente"
+    putStrLn "3. Todas as consultas"
     putStrLn "0. Voltar"
     hFlush stdout
     escolha <- getLine
@@ -174,33 +182,35 @@ buscarConsulta = do
             dataConsulta <- getLine
 
             if validadorData dataConsulta
-                then buscar dataConsulta
+                then buscar dataConsulta cpf
             else do
                 putStrLn "Data inválida"
-                buscarConsulta
+                buscarConsulta cpf
         "2" -> do
             putStr "Informe o crm do médico (CRM/XX 123456): "
             hFlush stdout
             crmMed <- getLine
             if validadorFormatoCRM crmMed
-                then buscar crmMed
+                then buscar crmMed cpf
             else do 
                 putStrLn "CRM inválido"
-                buscarConsulta
+                buscarConsulta cpf
             
-        "3" -> do
-            putStr "Informe o CPF do paciente: "
-            hFlush stdout
-            cpf <- getLine
+        "3" -> buscarTodos cpf
+            -- putStr "Informe o CPF do paciente: "
+            -- hFlush stdout
+            -- cpf <- getLine
 
-            if validadorCpf cpf
-                then buscar cpf
-            else do 
-                putStrLn "CPF inválido"
-                buscarConsulta
+            -- if validadorCpf cpf
+            --     then buscar cpf
+            -- else do 
+            --     putStrLn "CPF inválido"
+            --     buscarConsulta
         "0" -> putStrLn "Voltando..."
         _   -> do 
             putStr "Opção inválida. Tente novamente."
-            buscarConsulta
+            buscarConsulta cpf
 
 
+exibeCabecalho :: IO ()
+exibeCabecalho = putStrLn "CPF|CRM|Data|Horário|Status|Tipo"

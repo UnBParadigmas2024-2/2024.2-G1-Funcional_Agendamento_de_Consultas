@@ -1,0 +1,10 @@
+Nome|CRM|Especialidade
+medico1 qwe|123456|CRM/DF 123456|Geral
+João Silva|CRM/SP 654321|Cardiologista
+Maria Oliveira|CRM/SP 789012|Pediatra
+Carlos Souza|CRM/SP 345678|Dermatologista
+Ana Costa|CRM/SP 901234|Neurologista
+Pedro Lima|CRM/SP 567890|Ortopedista
+Beatriz Rocha|CRM/SP 234567|Ginecologista
+Lucas Mendes|CRM/SP 890123|Oftalmologista
+Carolina Pinto|CRM/SP 123789|Endocrinologista

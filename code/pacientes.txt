@@ -1,3 +1,4 @@
 Nome|Senha|CPF|Idade|Telefone|Email
 Gustavo Barbosa|123456|12345678901|16|12345678901|gustavo@gmail.com
 Artur Seppa|123456|15550032345|24|61982389773|artur.reiman@gmail.com
+Edilberto Cantuaria|123456|12345678910|26|61912345678|edilberto.paradigmas@dominio.com

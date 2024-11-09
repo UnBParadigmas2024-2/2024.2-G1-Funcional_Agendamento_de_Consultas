@@ -1,0 +1,14 @@
+Nome|Senha|CRM|Especialidade
+Alice Santos|senha123|CRM/SP 123456|cardiologista
+Bruno Oliveira|med123|CRM/SP 654321|dermatologista
+Carla Pereira|456789|CRM/RJ 123789|pediatra
+Diego Martins|abc321|CRM/MG 456789|ortopedista
+Elena Nunes|xyz987|CRM/RS 789123|ginecologista
+Felipe Alves|senha456|CRM/PR 321456|oftalmologista
+Gabriela Lima|med789|CRM/BA 654123|neurologista
+Henrique Silva|senha852|CRM/SC 987654|urologista
+Isabela Costa|senha159|CRM/PE 432198|endocrinologista
+João Souza|pass456|CRM/CE 567891|psiquiatra
+Lívia Ferreira|senha951|CRM/GO 876543|reumatologista
+Mauro Rocha|med951|CRM/GO 876543|oncologista
+Nathan Almeida|123456|CRM/DF 987654|Hematologista

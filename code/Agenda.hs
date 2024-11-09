@@ -16,10 +16,10 @@ horariosPadrao = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30",
 buscaConsultas :: String -> IO ()
 buscaConsultas cpf = do
     putStrLn "Buscar:"
-    putStrLn "1. Por todas as suas consultas"
+    putStrLn "1. Por todas as suas consultas (agendadas, concluídas e canceladas)"
     putStrLn "2. Por Data"
     putStrLn "3. Por Médico"
-    putStrLn "4. Ver todos os horários disponíveis"
+    putStrLn "4. Ver todos os horários disponíveis"  -- EXIBIR APENAS SE FOR MÉDICO
     putStr "Digite sua escolha: "
     hFlush stdout
     escolha <- getLine
@@ -28,7 +28,7 @@ buscaConsultas cpf = do
             buscarPorCpf cpf
             buscaConsultas cpf  
 
-        "2" -> do 
+        "2" -> do    --- ESTÁ VOLTANDO PARA O MENU PRINCIPAL! Implementar a função de sair. 
             putStr "Informe a data (DD/MM/AAAA): "
             hFlush stdout
             dataConsulta <- getLine

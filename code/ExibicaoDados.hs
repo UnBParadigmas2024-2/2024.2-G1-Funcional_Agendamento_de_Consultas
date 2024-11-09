@@ -1,4 +1,4 @@
-module ExibicaoDados (exibirDados, exibirDadosPacientes, exibirDadosMedicos, atualizarDadosMedico,atualizarDadosPaciente ) where
+module ExibicaoDados (exibirDados, exibirDadosPacientes, exibirDadosMedicos, atualizarDadosMedico, atualizarDadosPaciente) where
 
 import System.IO (hFlush, stdout, appendFile, writeFile)
 import System.Directory (doesFileExist, removeFile, renameFile)
@@ -13,7 +13,7 @@ exibirDados key = do
 -- Função para exibir os dados dos pacientes filtrando pelas linhas que contêm a string CRM
 exibirDadosPacientes :: String -> IO ()
 exibirDadosPacientes key = do
-    putStrLn "\nDados dos Pacientes:"
+    putStrLn "\nDados do Paciente:"
     arquivoExistente <- doesFileExist "pacientes.txt"
     if arquivoExistente
         then do
@@ -21,8 +21,15 @@ exibirDadosPacientes key = do
             let linhasComCRM = filter (isInfixOf key) (lines conteudo)
             mapM_ putStrLn linhasComCRM
             putStrLn "\n"
+            -- Pergunta ao usuário se deseja alterar os dados
+            putStrLn "Deseja alterar seus dados? 1. Sim, 2. Não"
+            opcao <- getLine
+            case opcao of
+                "1" -> atualizarDadosPaciente key
+                "2" -> putStrLn "Dados não alterados."
+                _   -> putStrLn "Opção inválida."
         else putStrLn "Arquivo de pacientes não encontrado."
-
+        
 -- Função para exibir os dados dos médicos filtrando pelas linhas que contêm a string CRM
 exibirDadosMedicos :: String -> IO ()
 exibirDadosMedicos key = do
@@ -34,6 +41,13 @@ exibirDadosMedicos key = do
             let linhasComCRM = filter (isInfixOf key) (lines conteudo)
             mapM_ putStrLn linhasComCRM
             putStrLn "\n"
+            -- Pergunta ao usuário se deseja alterar os dados
+            putStrLn "Deseja alterar seus dados? 1. Sim, 2. Não"
+            opcao <- getLine
+            case opcao of
+                "1" -> atualizarDadosMedico key
+                "2" -> putStrLn "Dados não alterados."
+                _   -> putStrLn "Opção inválida."
         else putStrLn "Arquivo de médicos não encontrado."
 
 -- Função para atualizar dados de um médico
@@ -64,7 +78,6 @@ atualizarDadosMedico key = do
             renameFile "medicos_temp.txt" "medicos.txt"
             putStrLn "Dados do médico atualizados com sucesso.\n"
         else putStrLn "Arquivo de médicos não encontrado."
-
 
 -- Função para atualizar dados de um paciente
 atualizarDadosPaciente :: String -> IO ()

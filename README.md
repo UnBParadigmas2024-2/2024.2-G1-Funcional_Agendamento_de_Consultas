@@ -43,7 +43,7 @@ Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcioname
 
 ### Uso 
 ### Manual
-**Principais Comandos**: ``ghc -o SistemaGestao Main.hs Cadastro.hs`` ;  ``./SistemaGestao`` 
+**Principais Comandos**: ``ghc -o SistemaGestao Main.h`` ;  ``./SistemaGestao`` 
 
 #### Como usar o projeto
 1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)

@@ -1,4 +1,4 @@
-module Consulta (submenuConsulta, cadastroConsulta, buscarConsulta) where
+module Consulta (submenuConsulta, cadastroConsulta, buscarConsulta, buscarConsultaMedico) where
 
 import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
@@ -211,3 +211,32 @@ buscarConsulta cpf = do
 
 exibeCabecalho :: IO ()
 exibeCabecalho = putStrLn "CPF|CRM|Data|Horário|Status|Tipo"
+
+
+buscarConsultaMedico :: String -> IO ()
+buscarConsultaMedico crm = do
+    putStrLn "\nBuscar por:"
+    putStrLn "1. Consultas agendadas"
+    putStrLn "2. Horários disponiveis"
+    putStrLn "0. Voltar"
+    hFlush stdout
+    escolha <- getLine
+
+    case escolha of
+        "1" -> buscarTodos crm
+        "2" -> do
+            putStr "Informe a data (DD/MM/AAAA):"
+            hFlush stdout
+            dataDesejada <- getLine
+
+            if validadorData dataDesejada
+                then do
+                    horarios <- horariosDisponiveis dataDesejada crm
+                    mapM_ (\(i, horario) -> putStrLn $ show i ++ ". " ++ horario) (zip [1..] horarios) 
+                else do
+                    putStrLn "Data inválida"
+                    buscarConsultaMedico crm
+        "0" -> putStrLn "Voltando..."
+        _   -> do 
+            putStr "Opção inválida. Tente novamente."
+            buscarConsultaMedico crm

@@ -1,3 +1,4 @@
+# Passo a Passo de como usar o sistema funcional
 Primeiramente, para usar o sistema, inicialmente rode-o segundo o [passo a passo](documentacao/passoapasso-uso.md).
 Após tê-lo rodando:
 1. Cadastre-se:

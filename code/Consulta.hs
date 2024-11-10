@@ -4,7 +4,7 @@ import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition)
-import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis)
+import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis, buscarMedico, buscarPaciente)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -35,30 +35,38 @@ cadastroConsulta cpfPaciente = do
         then putStrLn "Formato de data inválido. Use DD/MM/AAAA."
         else do
             horarios <- horariosDisponiveis dataDesejada crmMedico
+
             if null horarios
                 then putStrLn "Não há horários disponíveis para essa data."
                 else do
                     horarioEscolhido <- exibirHorariosESelecionar horarios
                     case horarioEscolhido of
-                        Just horario -> putStrLn $ "Horário escolhido: " ++ horario
+                        Just horario -> escolhaHorario cpfPaciente crmMedico dataDesejada horario
                         Nothing -> putStrLn "Escolha inválida."
 
+  
 
---    dataConsulta <- coletarDataConsulta  
---    horarioConsulta <- coletarHorarioConsulta  
---    statusConsulta <- coletarStatusConsulta  
---    tipoConsulta <- coletarTipoConsulta  
---
---    let novaConsulta = cpfPaciente ++ "|" ++ crmMedico ++ "|" ++ dataConsulta ++ "|" ++ horarioConsulta ++ "|" ++ statusConsulta ++ "|" ++ tipoConsulta ++ "\n"
---    let cabecalho = "CPF|CRM|Data|Horário|Status|Tipo\n"
---
---    -- Verifica se o arquivo existe, se não existir, cria um novo com o cabeçalho
---    arquivoExistente <- doesFileExist "consultas.txt"
---    if not arquivoExistente
---        then writeFile "consultas.txt" (cabecalho ++ novaConsulta) 
---        else appendFile "consultas.txt" novaConsulta 
---    
---    putStrLn "Consulta cadastrada com sucesso!"
+-- Função de continuação para processar o horário escolhido
+escolhaHorario :: String -> String -> String -> String -> IO ()
+escolhaHorario cpfPaciente crmMedico dataConsulta horario = do
+    medico <- buscarMedico crmMedico
+    case medico of
+        Nothing -> putStrLn "Médico não encontrado."
+        Just medicoInfo -> do
+            paciente <- buscarPaciente cpfPaciente
+            case paciente of
+                Nothing -> putStrLn "Paciente não encontrado."
+                Just pacienteInfo -> do
+                    putStrLn "Digite o tipo da consulta (presencial ou online):"
+                    tipo <- getLine
+                    if tipo == "presencial" || tipo == "online"
+                        then adicionarConsulta pacienteInfo medicoInfo dataConsulta horario tipo
+                        else do
+                            putStrLn "Tipo de consulta inválido. Tente novamente com 'presencial' ou 'online'."
+                            escolhaHorario cpfPaciente crmMedico dataConsulta horario
+    
+    putStrLn "Consulta cadastrada com sucesso!"
+
 
 -- Exibe a lista enumerada de horários e permite escolher um
 exibirHorariosESelecionar :: [String] -> IO (Maybe String)
@@ -72,40 +80,12 @@ exibirHorariosESelecionar horarios = do
         then return $ Just (horarios !! indice)
         else return Nothing
 
-
--- Função para coletar a data da consulta
-coletarDataConsulta :: IO String
-coletarDataConsulta = do
-    putStrLn "Digite a data da consulta (DD/MM/AAAA):"
-    getLine
-
--- Função para coletar o horário da consulta
-coletarHorarioConsulta :: IO String
-coletarHorarioConsulta = do
-    putStrLn "Digite o horário da consulta (HH:MM):"
-    getLine
-
--- Função para coletar o status da consulta
-coletarStatusConsulta :: IO String
-coletarStatusConsulta = do
-    putStrLn "Digite o status da consulta (agendada, concluída, cancelada):"
-    status <- getLine
-    if status `elem` ["agendada", "concluída", "cancelada"]
-        then return status
-        else do
-            putStrLn "Status inválido. Tente novamente."
-            coletarStatusConsulta
-
--- Função para coletar o tipo da consulta
-coletarTipoConsulta :: IO String
-coletarTipoConsulta = do
-    putStrLn "Digite o tipo da consulta (presencial, online, de rotina, urgência):"
-    tipo <- getLine
-    if tipo `elem` ["presencial", "online", "rotina", "urgência"]
-        then return tipo
-        else do
-            putStrLn "Tipo inválido. Tente novamente."
-            coletarTipoConsulta
+-- Função para adicionar uma nova consulta ao arquivo consultas.txt
+adicionarConsulta :: [String] -> [String] -> String -> String -> String -> IO ()
+adicionarConsulta [nomePaciente, _, cpfPaciente, _, _, _] [nomeMedico, _, crmMedico, especialidade] dataConsulta horario tipo = do
+    let novaLinha = nomePaciente ++ "|" ++ cpfPaciente ++ "|" ++ crmMedico ++ "|" ++ nomeMedico ++ "|" ++ especialidade ++ "|" ++ dataConsulta ++ "|" ++ horario ++ "|agendada|" ++ tipo
+    appendFile "consultas.txt" (novaLinha ++ "\n")
+    putStrLn "Consulta agendada com sucesso!"
 
 
 ---------------------------------------------------------------------------------------------------------------------

@@ -16,3 +16,4 @@ Guilherme Peixoto Lima|12345678006|CRM/PR 321456|Felipe Alves|oftalmologista|06/
 Gustavo Barbosa de Oliveira|12345678901|CRM/PE 432198|Isabela Costa|endocrinologista|18/12/2024|12:30|concluída|online
 Samuel Alves Sato|12345678007|CRM/BA 654123|Gabriela Lima|neurologista|18/07/2024|13:00|agendada|presencial
 Samuel Alves Sato|12345678007|CRM/BA 654123|Gabriela Lima|neurologista|25/08/2024|14:00|concluída|online
+Gustavo Barbosa de Oliveira|12345678901|CRM/SP 123456|Alice Santos|cardiologista|21/08/2024|09:00|agendada|presencial

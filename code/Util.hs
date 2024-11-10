@@ -1,7 +1,8 @@
-module Util (validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis) where
+module Util (validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis, buscarMedico, buscarPaciente) where
 
 import Text.Regex (mkRegex, matchRegex)
 import Data.Char (isDigit)
+import Data.List (find)
 
 -- Validador formato de CPF
 validadorCpf:: String -> Bool

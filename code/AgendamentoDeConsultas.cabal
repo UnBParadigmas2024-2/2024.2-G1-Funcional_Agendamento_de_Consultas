@@ -75,6 +75,5 @@ executable AgendamentoDeConsultas
     -- Base language which the package is written in.
     default-language: Haskell2010
 
- 2-visualizar-atualizar-informações-médico-paciente
-    other-modules: ApagarConta, Cadastro, Login, Medico, Paciente, ExibicaoDados
+    other-modules: ApagarConta, Cadastro, Login, Medico, Paciente, ExibicaoDados, Util, Consulta
 

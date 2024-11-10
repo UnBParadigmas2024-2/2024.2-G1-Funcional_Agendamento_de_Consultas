@@ -24,16 +24,10 @@ submenuConsulta = do
          
 cadastroConsulta :: String -> IO ()
 cadastroConsulta cpfPaciente = do
-    putStrLn "Cadastrar Consulta"
-
-    -- cpfPaciente <- coletarCPF  
-    -- pacienteExiste <- verificarDuplicidadeCPF cpfPaciente
-    -- if not pacienteExiste then do 
-    --     putStrLn "Paciente não cadastrado. Verifique o CPF."
-    --     cadastroConsulta
-    --     else return ()
+    putStrLn "\n\nCadastrar Consulta"
 
     crmMedico <- escolherMedico
+    
     putStrLn crmMedico
     -- crmMedico <- coletarCRM 
 

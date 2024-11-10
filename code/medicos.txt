@@ -1,12 +1,14 @@
 Nome|Senha|CRM|Especialidade
-medico1 qwe|123456|CRM/DF 123456|Geral
-João Silva|123456|CRM/SP 654321|Cardiologista
-Maria Oliveira|123456|CRM/SP 789012|Pediatra
-Carlos Souza|123456|CRM/SP 345678|Dermatologista
-Ana Costa|123456|CRM/SP 901234|Neurologista
-Pedro Lima|123456|CRM/SP 567890|Ortopedista
-Beatriz Rocha|123456|CRM/SP 234567|Ginecologista
-Lucas Mendes|123456|CRM/SP 890123|Oftalmologista
-Carolina Pinto|123456|CRM/SP 123789|Endocrinologista
-doutor teste|123456|CRM/SP 123987|pedi
-sdf adfg |123456|CRM/SP 123123|cardio
+Alice Santos|senha123|CRM/SP 123456|cardiologista
+Bruno Oliveira|med123|CRM/SP 654321|dermatologista
+Carla Pereira|456789|CRM/RJ 123789|pediatra
+Pedro Martins|123456|CRM/MG 456789|odontologia
+Elena Nunes|xyz987|CRM/RS 789123|ginecologista
+Felipe Alves|senha456|CRM/PR 321456|oftalmologista
+Gabriela Lima|med789|CRM/BA 654123|neurologista
+Henrique Silva|senha852|CRM/SC 987654|urologista
+Isabela Costa|senha159|CRM/PE 432198|endocrinologista
+João Souza|pass456|CRM/CE 567891|psiquiatra
+Lívia Ferreira|senha951|CRM/GO 876543|reumatologista
+Mauro Rocha|med951|CRM/GO 876543|oncologista
+Nathan Almeida|123456|CRM/DF 987654|Hematologista

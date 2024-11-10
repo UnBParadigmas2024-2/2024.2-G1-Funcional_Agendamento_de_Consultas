@@ -42,7 +42,7 @@ listarMedicos = do
     let linhas = tail (lines conteudo)  -- Remove a primeira linha (cabeçalho)
         medicos = map (splitLinha '|') linhas
 
-    putStrLn "\n\nEscolha um médico pelo número:"
+    putStrLn "Escolha um médico pelo número:"
     mapM_ (\(i, medico) -> putStrLn (show i ++ ". " ++ medicoNomeEspecialidade medico)) (zip [1..] medicos)
 
 -- Função para escolher médico pelo número e retornar o CRM
@@ -55,10 +55,6 @@ escolherMedico = do
     putStrLn "Digite o número do médico desejado:"
     escolha <- readLn
     if escolha > 0 && escolha <= length medicos
-        then return (medicos !! (escolha - 1) !! 3)  -- Retorna o CRM
+        then return (medicos !! (escolha - 1) !! 2)  -- Retorna o CRM
         else return "Número inválido."
 
-
-
-
-                          

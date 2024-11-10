@@ -76,5 +76,4 @@ executable AgendamentoDeConsultas
     default-language: Haskell2010
 
  2-visualizar-atualizar-informações-médico-paciente
-    other-modules: ApagarConta, Cadastro, Login, Medico, Paciente, ExibicaoDados
-
+    other-modules: ApagarConta, Cadastro, Login, Medico, Paciente, ExibicaoDados, Consulta, Agenda, Util

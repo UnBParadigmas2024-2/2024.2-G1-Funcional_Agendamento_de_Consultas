@@ -2,24 +2,19 @@ module Agenda (buscaConsultas) where
 
 import System.IO (hFlush, stdout, readFile)
 import System.Directory (doesFileExist)
-import Data.List (isInfixOf, partition, nub, (\\))
+import Text.Regex (mkRegex, matchRegex)
+import Data.List (isInfixOf, partition, find)
 import Util (validadorCpf, validadorData, validadorFormatoCRM)
 
--- Lista de horários padrão (08:00 - 18:00) com intervalos de 30 minutos
-horariosPadrao :: [String]
-horariosPadrao = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", 
-                  "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", 
-                  "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", 
-                  "17:00", "17:30", "18:00"]
 
 -- Função para iniciar a busca
 buscaConsultas :: String -> IO ()
 buscaConsultas cpf = do
-    putStrLn "Buscar:"
-    putStrLn "1. Por todas as suas consultas (agendadas, concluídas e canceladas)"
+    putStrLn "\n\nBuscar:"
+    putStrLn "1. Por todas as suas consultas"
     putStrLn "2. Por Data"
     putStrLn "3. Por Médico"
-    putStrLn "4. Ver todos os horários disponíveis"  -- EXIBIR APENAS SE FOR MÉDICO
+    putStrLn "4. Voltar para Menu Principal"  
     putStr "Digite sua escolha: "
     hFlush stdout
     escolha <- getLine
@@ -28,27 +23,26 @@ buscaConsultas cpf = do
             buscarPorCpf cpf
             buscaConsultas cpf  
 
-        "2" -> do    --- ESTÁ VOLTANDO PARA O MENU PRINCIPAL! Implementar a função de sair. 
+        "2" -> do   
             putStr "Informe a data (DD/MM/AAAA): "
             hFlush stdout
             dataConsulta <- getLine
             if validadorData dataConsulta
-                then buscarPorData dataConsulta
+                then do
+                    buscarPorData dataConsulta 
+                    buscaConsultas cpf
                 else do
                     putStrLn "Data inválida"
                     buscaConsultas cpf 
 
         "3" -> do
-            putStr "Informe o CRM do médico (CRM/XX 123456): "
+            putStr "Informe o CRM ou nome do médico: "
             hFlush stdout
-            crmMed <- getLine
-            if validadorFormatoCRM crmMed
-                then buscarPorMedico crmMed
-                else do 
-                    putStrLn "CRM inválido"
-                    buscaConsultas cpf
-
-        "4" -> verHorariosDisponiveis
+            valor <- getLine
+            buscarPorMedico valor
+            buscaConsultas cpf
+        
+        "4" -> return ()  -- Retornando para o Menu Paciente sem importar diretamente o Paciente
 
 -- Função para buscar consultas por CPF do paciente
 buscarPorCpf :: String -> IO ()
@@ -58,9 +52,16 @@ buscarPorCpf cpf = buscar cpf "consultas.txt"
 buscarPorData :: String -> IO ()
 buscarPorData dataConsulta = buscar dataConsulta "consultas.txt"
 
--- Função para buscar consultas por CRM do médico
+-- Função para buscar consultas por CRM ou nome do médico
 buscarPorMedico :: String -> IO ()
-buscarPorMedico crmMed = buscar crmMed "consultas.txt"
+buscarPorMedico valor = do
+    maybeMedico <- obterMedico valor
+    case maybeMedico of
+        Just (nome, especialidade) -> do
+            putStrLn $ "Médico: " ++ nome
+            putStrLn $ "Especialidade: " ++ especialidade
+            buscar valor "consultas.txt"  -- Passa o nome ou CRM para buscar
+        Nothing -> putStrLn "Médico não encontrado."
 
 -- Função genérica para buscar dados em arquivo
 buscar :: String -> FilePath -> IO ()
@@ -69,33 +70,39 @@ buscar val filePath = do
     let (linhasEncontradas, _) = partition (\linha -> val `isInfixOf` linha) (lines conteudo)
     if null linhasEncontradas
         then putStrLn "Nenhuma consulta encontrada."
-        else mapM_ putStrLn linhasEncontradas
+        else mapM_ exibirConsulta linhasEncontradas
 
--- Função para ver todos os horários disponíveis em um dia específico
-verHorariosDisponiveis :: IO ()
-verHorariosDisponiveis = do
-    putStr "Informe a data (DD/MM/AAAA): "
-    hFlush stdout
-    dataConsulta <- getLine
-    if validadorData dataConsulta
-        then do
-            conteudo <- readFile "consultas.txt"
-            let consultasNoDia = filter (\linha -> dataConsulta `isInfixOf` linha) (lines conteudo)
-            let horariosOcupados = [horario | consulta <- consultasNoDia, 
-                                              let campos = wordsWhen (=='|') consulta,
-                                              length campos > 3, 
-                                              let horario = campos !! 3]
-            let horariosDisponiveis = horariosPadrao \\ nub horariosOcupados
-            if null horariosDisponiveis
-                then putStrLn "Nenhum horário disponível."
-                else do
-                    putStrLn "Horários disponíveis:"
-                    mapM_ putStrLn horariosDisponiveis
-        else putStrLn "Data inválida, tente novamente."
+-- Função para exibir consulta formatada
+exibirConsulta :: String -> IO ()
+exibirConsulta linha = do
+    let [nomePaciente, cpf, crm, nomeMedico, especialidade, dataConsulta, horario, status, tipo] = wordsWhen (== '|') linha
+    putStrLn "\n\n####CONSULTA####"
+    putStrLn $ "Nome paciente: " ++ nomePaciente
+    putStrLn $ "CPF: " ++ cpf
+    putStrLn $ "CRM: " ++ crm
+    putStrLn $ "Médico: " ++ nomeMedico
+    putStrLn $ "Especialidade: " ++ especialidade
+    putStrLn $ "Data: " ++ dataConsulta
+    putStrLn $ "Horário: " ++ horario
+    putStrLn $ "Status: " ++ status
+    putStrLn $ "Modalidade: " ++ tipo
 
--- Função auxiliar para dividir uma string por um delimitador específico
+-- Função para dividir uma string com base em um delimitador
 wordsWhen :: (Char -> Bool) -> String -> [String]
-wordsWhen p s = case dropWhile p s of
-                      "" -> []
-                      s' -> w : wordsWhen p s''
-                            where (w, s'') = break p s'
+wordsWhen p s =  case dropWhile p s of
+                    "" -> []
+                    s' -> w : wordsWhen p s''
+                          where (w, s'') = break p s'
+
+-- Função para obter informações do médico (por nome ou CRM)
+obterMedico :: String -> IO (Maybe (String, String))  
+obterMedico valor = do
+    conteudo <- readFile "medicos.txt"
+    let medicos = map parseMedico (lines conteudo)
+    return $ find (\(nome, crm) -> nome == valor || crm == valor) medicos
+
+-- Função para processar dados do médico
+parseMedico :: String -> (String, String)  -- Retorna nome e CRM
+parseMedico linha = 
+    let [nome, _, crm, especialidade] = wordsWhen (== '|') linha
+    in (nome, crm)  -- Retorna nome e CRM

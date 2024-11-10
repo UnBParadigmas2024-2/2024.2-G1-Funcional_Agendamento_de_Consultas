@@ -1,27 +1,18 @@
-CPF|CRM|Data|Horário|Status|Tipo
-12345678901|CRM/SP 123456|01/01/2024|12:00|agendada|online
-12345678901|CRM/SP 123456|15/01/2024|14:00|concluída|online
-12345678901|CRM/SP 123456|20/02/2024|10:00|concluída|presencial
-12345678002|CRM/SP 654321|12/02/2024|09:00|agendada|presencial
-12345678002|CRM/SP 654321|05/03/2024|11:30|concluída|online
-12345678003|CRM/RJ 123789|03/03/2024|15:30|agendada|online
-12345678003|CRM/RJ 123789|18/03/2024|09:00|cancelada|presencial
-12345678003|CRM/RJ 123789|25/04/2024|14:30|agendada|online
-12345678004|CRM/MG 456789|15/04/2024|11:00|concluída|presencial
-12345678004|CRM/MG 456789|22/04/2024|16:00|agendada|presencial
-12345678005|CRM/RS 789123|05/05/2024|08:30|concluída|online
-12345678005|CRM/RS 789123|12/05/2024|09:30|concluída|online
-12345678006|CRM/PR 321456|06/06/2024|10:00|agendada|presencial
-12345678006|CRM/PR 321456|20/06/2024|14:30|concluída|online
-12345678007|CRM/BA 654123|07/07/2024|14:00|cancelada|online
-12345678007|CRM/BA 654123|18/07/2024|13:00|agendada|presencial
-12345678001|CRM/SC 987654|08/08/2024|13:30|concluída|presencial
-12345678001|CRM/SC 987654|21/08/2024|09:30|agendada|online
-12345678001|CRM/SC 987654|30/08/2024|16:30|cancelada|presencial
-12345678910|CRM/PE 432198|09/09/2024|16:30|agendada|online
-12345678910|CRM/PE 432198|15/09/2024|14:00|concluída|online
-12345678910|CRM/PE 432198|29/09/2024|10:30|agendada|presencial
-15550032345|CRM/GO 876543|11/11/2024|17:00|concluída|online
-15550032345|CRM/GO 876543|25/11/2024|09:30|cancelada|presencial
-15550032345|CRM/GO 876543|02/12/2024|14:00|agendada|presencial
-15550032345|CRM/GO 876543|18/12/2024|12:30|concluída|online
+NomePaciente|CPF|CRM|NomeMedico|Especialidade|Data|Horário|Status|Tipo
+Arthur Ferreira Rodrigues|12345678001|CRM/SP 123456|Alice Santos|cardiologista|01/01/2024|12:00|agendada|online
+Arthur Ferreira Rodrigues|12345678001|CRM/SP 123456|Alice Santos|cardiologista|21/08/2024|09:30|agendada|online
+Arthur José Nascimento de Lima|12345678002|CRM/SP 654321|Bruno Oliveira|dermatologista|12/02/2024|09:00|agendada|presencial
+Arthur José Nascimento de Lima|12345678002|CRM/SP 654321|Bruno Oliveira|dermatologista|05/03/2024|11:30|concluída|online
+Artur Seppa Reiman|15550032345|CRM/GO 876543|Mauro Rocha|oncologista|11/11/2024|17:00|concluída|online
+Artur Seppa Reiman|15550032345|CRM/GO 876543|Mauro Rocha|oncologista|18/12/2024|12:30|agendada|presencial
+Augusto Duraes Camargo|12345678003|CRM/RJ 123789|Carla Pereira|pediatra|03/03/2024|15:30|agendada|online
+Breno Henrique de Souza|12345678004|CRM/MG 456789|Pedro Martins|odontologia|15/04/2024|11:00|concluída|presencial
+Breno Henrique de Souza|12345678004|CRM/MG 456789|Pedro Martins|odontologia|22/04/2024|16:00|agendada|presencial
+Edilberto Almeida Cantuaria|12345678910|CRM/PE 432198|Isabela Costa|endocrinologista|09/09/2024|16:30|agendada|online
+Edilberto Almeida Cantuaria|12345678910|CRM/PE 432198|Isabela Costa|endocrinologista|29/09/2024|10:30|concluída|presencial
+Bruna Alcantara|12345678005|CRM/RS 789123|Elena Nunes|ginecologista|05/05/2024|08:30|concluída|online
+Bruna Alcantara|12345678005|CRM/RS 789123|Elena Nunes|ginecologista|12/05/2024|09:30|concluída|online
+Guilherme Peixoto Lima|12345678006|CRM/PR 321456|Felipe Alves|oftalmologista|06/06/2024|10:00|agendada|presencial
+Gustavo Barbosa de Oliveira|12345678901|CRM/PE 432198|Isabela Costa|endocrinologista|18/12/2024|12:30|concluída|online
+Samuel Alves Sato|12345678007|CRM/BA 654123|Gabriela Lima|neurologista|18/07/2024|13:00|agendada|presencial
+Samuel Alves Sato|12345678007|CRM/BA 654123|Gabriela Lima|neurologista|25/08/2024|14:00|concluída|online

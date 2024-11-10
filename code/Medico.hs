@@ -1,6 +1,6 @@
 module Medico (submenuMedico) where
 
-import ApagarConta (apagarConta)
+import ApagarConta (apagarConta, apagarContaMedico)
 import System.IO (hFlush, stdout)
 import ExibicaoDados (exibirDadosMedicos, atualizarDadosMedico)
 import Consulta (buscarConsultaMedico, desmaracarConsulta)
@@ -20,7 +20,7 @@ submenuMedico crm = do
             exibirDadosMedicos crm
             submenuMedico crm  -- Retorna ao submenu após exibir os dados
         "2" -> do
-            apagarConta crm  -- Chama a função para apagar a conta
+            apagarContaMedico crm  -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"
         "3" -> do
             buscarConsultaMedico crm

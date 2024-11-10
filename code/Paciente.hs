@@ -27,7 +27,9 @@ submenuPaciente cpf = do
         "3" -> do 
             cadastroConsulta cpf
             submenuPaciente cpf
-        "4" -> buscaConsultas cpf
+        "4" -> do
+            buscaConsultas cpf
+            submenuPaciente cpf
         "5" -> putStrLn "Saindo do sistema..."
         _   -> do
             putStrLn "Opção inválida. Tente novamente."

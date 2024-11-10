@@ -1,7 +1,7 @@
 module Login (login) where
 
 import System.IO (hFlush, stdout)
-import Data.List (isInfixOf, isPrefixOf)
+import Data.List (isPrefixOf, find)
 import Paciente (submenuPaciente)
 import Medico (submenuMedico)
 
@@ -13,56 +13,56 @@ login = do
     hFlush stdout
     identificador <- getLine
     if "CRM/" `isPrefixOf` identificador
-        then do
-            putStrLn $ "Bem-vindo, Médico " ++ identificador
-            realizarLoginMedico identificador
-        else do
-            putStrLn $ "Bem-vindo, Paciente " ++ identificador
-            realizarLoginPaciente identificador
+        then realizarLoginMedico identificador
+        else realizarLoginPaciente identificador
 
 -- Função para login de paciente
 realizarLoginPaciente :: String -> IO ()
 realizarLoginPaciente cpf = do
     putStrLn "Digite sua senha:"
     senha <- getLine
-    autenticado <- autenticarPaciente cpf senha
-    if autenticado
-        then do
+    resultadoAutenticacao <- autenticarPaciente cpf senha
+    case resultadoAutenticacao of
+        Just nome -> do
+            putStrLn $ "Bem-vindo, " ++ nome
             putStrLn "Login realizado com sucesso!"
             submenuPaciente cpf  -- Redireciona ao menu do paciente após login
-        else putStrLn "CPF ou senha incorretos. Tente novamente."
+        Nothing -> putStrLn "CPF ou senha incorretos. Tente novamente."
 
 -- Função para login de médico
 realizarLoginMedico :: String -> IO ()
 realizarLoginMedico crm = do
     putStrLn "Digite sua senha:"
     senha <- getLine
-    autenticado <- autenticarMedico crm senha
-    if autenticado
-        then do
+    resultadoAutenticacao <- autenticarMedico crm senha
+    case resultadoAutenticacao of
+        Just nome -> do
+            putStrLn $ "Bem-vindo, Dr(a). " ++ nome
             putStrLn "Login realizado com sucesso!"
             submenuMedico crm  -- Redireciona ao menu do médico após login
-        else putStrLn "CRM ou senha incorretos. Tente novamente."
+        Nothing -> putStrLn "CRM ou senha incorretos. Tente novamente."
 
--- Função para autenticar CPF e senha de paciente
-autenticarPaciente :: String -> String -> IO Bool
+-- Função para autenticar CPF e senha de paciente, retornando o nome se autenticado
+autenticarPaciente :: String -> String -> IO (Maybe String)
 autenticarPaciente cpf senha = do
     conteudo <- readFile "pacientes.txt"
     let linhas = lines conteudo
     -- Validação baseada na estrutura Nome|Senha|CPF|Idade|Telefone|Email
-    let usuarioValido = any (\linha -> let campos = wordsWhen (=='|') linha
-                                       in length campos >= 3 && campos !! 1 == senha && campos !! 2 == cpf) linhas
-    return usuarioValido
+    let pacienteEncontrado = find (\linha -> let campos = wordsWhen (=='|') linha
+                                             in length campos >= 3 && campos !! 1 == senha && campos !! 2 == cpf) linhas
+    -- Retorna o nome do paciente se encontrado
+    return $ fmap (\linha -> let campos = wordsWhen (=='|') linha in campos !! 0) pacienteEncontrado
 
--- Função para autenticar CRM e senha de médico
-autenticarMedico :: String -> String -> IO Bool
+-- Função para autenticar CRM e senha de médico, retornando o nome se autenticado
+autenticarMedico :: String -> String -> IO (Maybe String)
 autenticarMedico crm senha = do
     conteudo <- readFile "medicos.txt"
     let linhas = lines conteudo
-    -- Validação baseada na estrutura Nome|CRM|Especialidade
-    let usuarioValido = any (\linha -> let campos = wordsWhen (=='|') linha
-                                       in length campos >= 2 && campos !! 1 == senha && campos !! 2 == crm) linhas
-    return usuarioValido
+    -- Validação baseada na estrutura Nome|Senha|CRM|Especialidade
+    let medicoEncontrado = find (\linha -> let campos = wordsWhen (=='|') linha
+                                           in length campos >= 3 && campos !! 1 == senha && campos !! 2 == crm) linhas
+    -- Retorna o nome do médico se encontrado
+    return $ fmap (\linha -> let campos = wordsWhen (=='|') linha in campos !! 0) medicoEncontrado
 
 -- Função auxiliar para dividir uma string pelo caractere |
 wordsWhen :: (Char -> Bool) -> String -> [String]

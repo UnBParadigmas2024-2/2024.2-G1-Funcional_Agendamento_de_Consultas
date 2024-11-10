@@ -7,12 +7,11 @@ import Consulta (buscarConsultaMedico, desmaracarConsulta)
 
 submenuMedico :: String -> IO ()
 submenuMedico crm = do
-    putStrLn "\nMenu do Médico"
+    putStrLn "\nBem vindo (a)! O que deseja?"
     putStrLn "1. Visualizar meus dados"
     putStrLn "2. Apagar minha conta"
     putStrLn "3. Visualizar minha agenda (consultas agendadas e horários disponíveis)"
-    putStrLn "4. Desmarcar consultas"
-    putStrLn "5. Sair do sistema"
+    putStrLn "4. Sair do sistema"
     putStr "Escolha uma opção: "
     hFlush stdout
     escolha <- getLine
@@ -26,8 +25,7 @@ submenuMedico crm = do
         "3" -> do
             buscarConsultaMedico crm
             submenuMedico crm
-        "4" -> desmaracarConsulta crm
-        "5" -> putStrLn "Saindo do sistema..."
+        "4" -> putStrLn "Saindo do sistema..."
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             submenuMedico crm

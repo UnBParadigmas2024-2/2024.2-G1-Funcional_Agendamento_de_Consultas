@@ -5,25 +5,29 @@ import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition, find)
 import Util (validadorCpf, validadorData, validadorFormatoCRM)
-
+import Consulta (cadastroConsulta)
 
 -- Função para iniciar a busca
 buscaConsultas :: String -> IO ()
 buscaConsultas cpf = do
-    putStrLn "\n\nBuscar:"
-    putStrLn "1. Por todas as suas consultas"
-    putStrLn "2. Por Data"
-    putStrLn "3. Por Médico"
-    putStrLn "4. Voltar para Menu Principal"  
+    putStrLn "\nDigite a opção que prefere:"
+    putStrLn "1. Agendar nova consulta"
+    putStrLn "2. Buscar por todas as suas consultas"
+    putStrLn "3. Buscar por Data"
+    putStrLn "4. Buscar por Médico"
+    putStrLn "5. Voltar para Menu Principal"  
     putStr "Digite sua escolha: "
     hFlush stdout
     escolha <- getLine
     case escolha of
-        "1" -> do 
+        "1" -> do  
+            cadastroConsulta cpf
+            buscaConsultas cpf
+        "2" -> do 
             buscarPorCpf cpf
             buscaConsultas cpf  
 
-        "2" -> do   
+        "3" -> do   
             putStr "Informe a data (DD/MM/AAAA): "
             hFlush stdout
             dataConsulta <- getLine
@@ -35,14 +39,14 @@ buscaConsultas cpf = do
                     putStrLn "Data inválida"
                     buscaConsultas cpf 
 
-        "3" -> do
+        "4" -> do
             putStr "Informe o CRM ou nome do médico: "
             hFlush stdout
             valor <- getLine
             buscarPorMedico valor
             buscaConsultas cpf
         
-        "4" -> return ()  -- Retornando para o Menu Paciente sem importar diretamente o Paciente
+        "5" -> return ()  -- Retornando para o Menu Paciente sem importar diretamente o Paciente
 
 -- Função para buscar consultas por CPF do paciente
 buscarPorCpf :: String -> IO ()

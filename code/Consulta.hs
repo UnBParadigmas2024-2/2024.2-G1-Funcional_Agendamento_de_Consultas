@@ -170,6 +170,7 @@ buscarConsulta cpf = do
     putStrLn "2. Médico"
     putStrLn "3. Todas as consultas"
     putStrLn "0. Voltar"
+    putStr "Escolha uma opção: "
     hFlush stdout
     escolha <- getLine
     case escolha of
@@ -209,6 +210,7 @@ buscarConsultaMedico crm = do
     putStrLn "\nBuscar por:"
     putStrLn "1. Consultas agendadas"
     putStrLn "2. Horários disponiveis"
+    putStrLn "3. Desmarcar consultas"
     putStrLn "0. Voltar"
     hFlush stdout
     escolha <- getLine
@@ -227,6 +229,8 @@ buscarConsultaMedico crm = do
                 else do
                     putStrLn "Data inválida"
                     buscarConsultaMedico crm
+        "3" -> do
+            desmaracarConsulta crm
         "0" -> putStrLn "Voltando..."
         _   -> do 
             putStr "Opção inválida. Tente novamente."

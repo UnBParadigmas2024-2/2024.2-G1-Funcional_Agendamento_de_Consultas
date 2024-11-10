@@ -36,7 +36,7 @@ A modularidade permite que cada funcionalidade seja isolada em módulos distinto
 ### Fluxograma do Projeto
 ![fluxos (1)](https://github.com/user-attachments/assets/4363c36c-7dbf-41db-bc0a-f9a72384e6cf)
 
-- OBS: Para maior detalhamento de cada funcionalidade, acesse [esse link]()
+- OBS: Para maior detalhamento de cada funcionalidade, acesse [esse link](documentacao/uso-sistema.md)
 ## Manual
 ### Instalação 
 **Linguagens**: Haskell<br>
@@ -49,7 +49,7 @@ A modularidade permite que cada funcionalidade seja isolada em módulos distinto
 
 #### Como usar o projeto
 1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
-2. Para aprender como utilizar o sistema em si acesse [esse link]()
+2. Para aprender como utilizar o sistema em si acesse [esse link](documentacao/uso-sistema.md)
 
 
 ## Vídeo

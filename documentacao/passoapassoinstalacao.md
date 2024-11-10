@@ -2,26 +2,32 @@
 
 - Passo 1. Instale o Haskell em sua máquina, com os seguintes passos:
 
-```bash 
-sudo apt update 
+```bash
+sudo apt update
 ```
 
-```bash  
+```bash
 sudo apt install haskell-platform
-``` 
+```
 
 - Passo 2. Instale o Compilador GHC
 
 ```bash
- curl -sSL https://get.haskellstack.org/ | sh 
- ```
+ curl -sSL https://get.haskellstack.org/ | sh
+```
 
-- Passo 3. Verifique se eleS foram instalados corretamente:
-
-```bash
- ghc --version 
- ```
+- Passo 3. Instalar o cabal
 
 ```bash
- stack --version 
- ``` 
+sudo apt install cabal-install
+```
+
+- Passo 4. Verifique se eleS foram instalados corretamente:
+
+```bash
+ ghc --version
+```
+
+```bash
+ stack --version
+```

@@ -1,9 +1,9 @@
-module Consulta (submenuConsulta, cadastroConsulta, buscarConsulta, buscarConsultaMedico) where
+module Consulta (submenuConsulta, cadastroConsulta, buscarConsulta, buscarConsultaMedico, desmaracarConsulta) where
 
 import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
-import Data.List (isInfixOf, partition)
+import Data.List (isInfixOf, partition, delete)
 import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis, buscarMedico, buscarPaciente)
 
 submenuConsulta :: IO ()
@@ -194,15 +194,6 @@ buscarConsulta cpf = do
                 buscarConsulta cpf
             
         "3" -> buscarTodos cpf
-            -- putStr "Informe o CPF do paciente: "
-            -- hFlush stdout
-            -- cpf <- getLine
-
-            -- if validadorCpf cpf
-            --     then buscar cpf
-            -- else do 
-            --     putStrLn "CPF inválido"
-            --     buscarConsulta
         "0" -> putStrLn "Voltando..."
         _   -> do 
             putStr "Opção inválida. Tente novamente."
@@ -240,3 +231,32 @@ buscarConsultaMedico crm = do
         _   -> do 
             putStr "Opção inválida. Tente novamente."
             buscarConsultaMedico crm
+
+
+desmaracarConsulta :: String -> IO ()
+desmaracarConsulta crm = do
+    putStrLn "Digite a data desejada (DD/MM/AAAA):"
+    hFlush stdout
+    dataDesejada <- getLine
+    conteudo <- readFile "consultas.txt"
+    let linhas = lines conteudo
+        registros = [linha | linha <- linhas, crm `isInfixOf` linha, dataDesejada `isInfixOf` linha]
+        registrosComIndice = zip [1..] registros
+    
+    -- Exibir registros com índice
+    putStrLn "\nRegistros encontrados:"
+    mapM_ (\(i, linha) -> putStrLn $ show i ++ " - " ++ linha) registrosComIndice
+    
+    -- Solicitar índice para exclusão
+    putStrLn "\nDigite o número do índice do registro que deseja excluir:"
+    hFlush stdout
+    indice <- readLn
+
+    -- Validar índice e excluir o registro
+    if indice > 0 && indice <= length registros
+       then do
+           let linhaParaExcluir = registros !! (indice - 1)
+               novasLinhas = delete linhaParaExcluir linhas
+           writeFile "consultas.txt" (unlines novasLinhas)
+           putStrLn "Registro excluído com sucesso!"
+       else putStrLn "Índice inválido! Nenhum registro foi excluído."

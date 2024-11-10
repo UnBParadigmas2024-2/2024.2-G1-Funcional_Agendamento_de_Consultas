@@ -34,9 +34,9 @@ O paradigma funcional, base do Haskell utilizado neste projeto, é ideal para o 
 
 A modularidade permite que cada funcionalidade seja isolada em módulos distintos, facilitando a manutenção e expansão do código. Além disso, a avaliação preguiçosa de Haskell otimiza o processamento, garantindo eficiência no uso de recursos. A natureza declarativa do paradigma torna o código mais legível e fácil de depurar, contribuindo para um sistema robusto, focado na segurança e na integridade dos dados.
 
-## Por que optamos por um sistema de gerenciamento de pacientes?
+### Por que optamos por um sistema de gerenciamento de pacientes?
 
-
+Saiba mais sobre a escolha do projeto através [desse link](documentacao/motivos-escolha-do-projeto.md)
 
 ## Screenshots
 ### Fluxograma do Projeto

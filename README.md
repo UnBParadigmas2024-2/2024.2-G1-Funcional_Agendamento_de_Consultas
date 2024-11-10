@@ -33,8 +33,10 @@ O paradigma funcional, base do Haskell utilizado neste projeto, é ideal para o 
 A modularidade permite que cada funcionalidade seja isolada em módulos distintos, facilitando a manutenção e expansão do código. Além disso, a avaliação preguiçosa de Haskell otimiza o processamento, garantindo eficiência no uso de recursos. A natureza declarativa do paradigma torna o código mais legível e fácil de depurar, contribuindo para um sistema robusto, focado na segurança e na integridade dos dados.
 
 ## Screenshots
-Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
+### Fluxograma do Projeto
+![fluxos (1)](https://github.com/user-attachments/assets/4363c36c-7dbf-41db-bc0a-f9a72384e6cf)
 
+- OBS: Para maior detalhamento de cada funcionalidade, acesse [esse link]()
 ## Manual
 ### Instalação 
 **Linguagens**: Haskell<br>
@@ -47,7 +49,7 @@ Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcioname
 
 #### Como usar o projeto
 1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
-2. Para aprender como utilizar o sistema em si acesse [esse link]
+2. Para aprender como utilizar o sistema em si acesse [esse link]()
 
 
 ## Vídeo

@@ -1,10 +1,10 @@
-module Consulta (submenuConsulta) where
+module Consulta (submenuConsulta, cadastroConsulta, buscarConsulta) where
 
 import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition)
-import Util(validadorCpf, validadorData, validadorFormatoCRM)
+import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis, buscarMedico, buscarPaciente)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -16,79 +16,76 @@ submenuConsulta = do
     hFlush stdout
     escolha <- getLine
     case escolha of
-        "1" -> cadastroConsulta 
-        "2" -> buscarConsulta
+        --"1" -> cadastroConsulta 
+        --"2" -> buscarConsulta
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             submenuConsulta  -- Chama novamente o submenu para o usuário tentar novamente.
          
-cadastroConsulta :: IO ()
-cadastroConsulta = do
-    putStrLn "Cadastrar Consulta"
+cadastroConsulta :: String -> IO ()
+cadastroConsulta cpfPaciente = do
+    putStrLn "\n\nCadastrar Consulta"
 
-    cpfPaciente <- coletarCPF  
-    pacienteExiste <- verificarDuplicidadeCPF cpfPaciente
-    if not pacienteExiste then do 
-        putStrLn "Paciente não cadastrado. Verifique o CPF."
-        cadastroConsulta
-        else return ()
+    crmMedico <- escolherMedico
 
-    crmMedico <- coletarCRM  
-    medicoExiste <- verificarDuplicidadeCRM crmMedico
-    if not medicoExiste then do 
-        putStrLn "Médico não cadastrado. Verifique o CRM."
-        cadastroConsulta
-        else return ()
+    putStrLn "Digite a data desejada (DD/MM/AAAA):"
+    dataDesejada <- getLine
+    
+    if not (validadorData dataDesejada)
+        then putStrLn "Formato de data inválido. Use DD/MM/AAAA."
+        else do
+            horarios <- horariosDisponiveis dataDesejada crmMedico
 
-    dataConsulta <- coletarDataConsulta  
-    horarioConsulta <- coletarHorarioConsulta  
-    statusConsulta <- coletarStatusConsulta  
-    tipoConsulta <- coletarTipoConsulta  
+            if null horarios
+                then putStrLn "Não há horários disponíveis para essa data."
+                else do
+                    horarioEscolhido <- exibirHorariosESelecionar horarios
+                    case horarioEscolhido of
+                        Just horario -> escolhaHorario cpfPaciente crmMedico dataDesejada horario
+                        Nothing -> putStrLn "Escolha inválida."
 
-    let novaConsulta = cpfPaciente ++ "|" ++ crmMedico ++ "|" ++ dataConsulta ++ "|" ++ horarioConsulta ++ "|" ++ statusConsulta ++ "|" ++ tipoConsulta ++ "\n"
-    let cabecalho = "CPF|CRM|Data|Horário|Status|Tipo\n"
+  
 
-    -- Verifica se o arquivo existe, se não existir, cria um novo com o cabeçalho
-    arquivoExistente <- doesFileExist "consultas.txt"
-    if not arquivoExistente
-        then writeFile "consultas.txt" (cabecalho ++ novaConsulta) 
-        else appendFile "consultas.txt" novaConsulta 
+-- Função de continuação para processar o horário escolhido
+escolhaHorario :: String -> String -> String -> String -> IO ()
+escolhaHorario cpfPaciente crmMedico dataConsulta horario = do
+    medico <- buscarMedico crmMedico
+    case medico of
+        Nothing -> putStrLn "Médico não encontrado."
+        Just medicoInfo -> do
+            paciente <- buscarPaciente cpfPaciente
+            case paciente of
+                Nothing -> putStrLn "Paciente não encontrado."
+                Just pacienteInfo -> do
+                    putStrLn "Digite o tipo da consulta (presencial ou online):"
+                    tipo <- getLine
+                    if tipo == "presencial" || tipo == "online"
+                        then adicionarConsulta pacienteInfo medicoInfo dataConsulta horario tipo
+                        else do
+                            putStrLn "Tipo de consulta inválido. Tente novamente com 'presencial' ou 'online'."
+                            escolhaHorario cpfPaciente crmMedico dataConsulta horario
     
     putStrLn "Consulta cadastrada com sucesso!"
 
--- Função para coletar a data da consulta
-coletarDataConsulta :: IO String
-coletarDataConsulta = do
-    putStrLn "Digite a data da consulta (DD/MM/AAAA):"
-    getLine
 
--- Função para coletar o horário da consulta
-coletarHorarioConsulta :: IO String
-coletarHorarioConsulta = do
-    putStrLn "Digite o horário da consulta (HH:MM):"
-    getLine
+-- Exibe a lista enumerada de horários e permite escolher um
+exibirHorariosESelecionar :: [String] -> IO (Maybe String)
+exibirHorariosESelecionar horarios = do
+    putStrLn "Horários disponíveis:"
+    mapM_ (\(i, horario) -> putStrLn $ show i ++ ". " ++ horario) (zip [1..] horarios)
+    putStrLn "Digite o número do horário desejado:"
+    escolha <- getLine
+    let indice = read escolha - 1
+    if indice >= 0 && indice < length horarios
+        then return $ Just (horarios !! indice)
+        else return Nothing
 
--- Função para coletar o status da consulta
-coletarStatusConsulta :: IO String
-coletarStatusConsulta = do
-    putStrLn "Digite o status da consulta (agendada, concluída, cancelada):"
-    status <- getLine
-    if status `elem` ["agendada", "concluída", "cancelada"]
-        then return status
-        else do
-            putStrLn "Status inválido. Tente novamente."
-            coletarStatusConsulta
-
--- Função para coletar o tipo da consulta
-coletarTipoConsulta :: IO String
-coletarTipoConsulta = do
-    putStrLn "Digite o tipo da consulta (presencial, online, de rotina, urgência):"
-    tipo <- getLine
-    if tipo `elem` ["presencial", "online", "rotina", "urgência"]
-        then return tipo
-        else do
-            putStrLn "Tipo inválido. Tente novamente."
-            coletarTipoConsulta
+-- Função para adicionar uma nova consulta ao arquivo consultas.txt
+adicionarConsulta :: [String] -> [String] -> String -> String -> String -> IO ()
+adicionarConsulta [nomePaciente, _, cpfPaciente, _, _, _] [nomeMedico, _, crmMedico, especialidade] dataConsulta horario tipo = do
+    let novaLinha = nomePaciente ++ "|" ++ cpfPaciente ++ "|" ++ crmMedico ++ "|" ++ nomeMedico ++ "|" ++ especialidade ++ "|" ++ dataConsulta ++ "|" ++ horario ++ "|agendada|" ++ tipo
+    appendFile "consultas.txt" (novaLinha ++ "\n")
+    putStrLn "Consulta agendada com sucesso!"
 
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -152,18 +149,26 @@ validarFormatoCRM crm =
         Just _ -> True
         Nothing -> False
 
-buscar :: String -> IO ()
-buscar val = do
+buscar :: String -> String -> IO ()
+buscar val1 val2 = do
     conteudo <- readFile "consultas.txt"
-    let (linhasApagadas, dados) = partition (\linha -> val `isInfixOf` linha) (lines conteudo)
-    mapM_ putStrLn linhasApagadas
+    exibeCabecalho
+    let (linhas, dados) = partition (\linha -> val1 `isInfixOf` linha && val2 `isInfixOf` linha) (lines conteudo)
+    mapM_ putStrLn linhas
 
-buscarConsulta :: IO ()
-buscarConsulta = do
+buscarTodos :: String -> IO ()
+buscarTodos val = do
+    conteudo <- readFile "consultas.txt"
+    exibeCabecalho
+    let (linhas, dados) = partition (\linha -> val `isInfixOf` linha) (lines conteudo)
+    mapM_ putStrLn linhas
+
+buscarConsulta :: String -> IO ()
+buscarConsulta cpf = do
     putStrLn "\nBuscar por:"
     putStrLn "1. Data"
     putStrLn "2. Médico"
-    putStrLn "3. Paciente"
+    putStrLn "3. Todas as consultas"
     putStrLn "0. Voltar"
     hFlush stdout
     escolha <- getLine
@@ -174,33 +179,35 @@ buscarConsulta = do
             dataConsulta <- getLine
 
             if validadorData dataConsulta
-                then buscar dataConsulta
+                then buscar dataConsulta cpf
             else do
                 putStrLn "Data inválida"
-                buscarConsulta
+                buscarConsulta cpf
         "2" -> do
             putStr "Informe o crm do médico (CRM/XX 123456): "
             hFlush stdout
             crmMed <- getLine
             if validadorFormatoCRM crmMed
-                then buscar crmMed
+                then buscar crmMed cpf
             else do 
                 putStrLn "CRM inválido"
-                buscarConsulta
+                buscarConsulta cpf
             
-        "3" -> do
-            putStr "Informe o CPF do paciente: "
-            hFlush stdout
-            cpf <- getLine
+        "3" -> buscarTodos cpf
+            -- putStr "Informe o CPF do paciente: "
+            -- hFlush stdout
+            -- cpf <- getLine
 
-            if validadorCpf cpf
-                then buscar cpf
-            else do 
-                putStrLn "CPF inválido"
-                buscarConsulta
+            -- if validadorCpf cpf
+            --     then buscar cpf
+            -- else do 
+            --     putStrLn "CPF inválido"
+            --     buscarConsulta
         "0" -> putStrLn "Voltando..."
         _   -> do 
             putStr "Opção inválida. Tente novamente."
-            buscarConsulta
+            buscarConsulta cpf
 
 
+exibeCabecalho :: IO ()
+exibeCabecalho = putStrLn "CPF|CRM|Data|Horário|Status|Tipo"

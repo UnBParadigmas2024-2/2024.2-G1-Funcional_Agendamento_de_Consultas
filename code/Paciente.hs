@@ -4,6 +4,7 @@ import Agenda (buscaConsultas)
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
 import ExibicaoDados (exibirDadosPacientes, atualizarDadosPaciente)
+import Consulta (cadastroConsulta, buscarConsulta)
 
 submenuPaciente :: String -> IO ()
 submenuPaciente cpf = do
@@ -23,8 +24,12 @@ submenuPaciente cpf = do
         "2" -> do
             apagarConta cpf  -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"
-        "3" -> putStrLn "Funcionalidade de agendamento ainda não implementada."
-        "4" -> buscaConsultas cpf
+        "3" -> do 
+            cadastroConsulta cpf
+            submenuPaciente cpf
+        "4" -> do
+            buscaConsultas cpf
+            submenuPaciente cpf
         "5" -> putStrLn "Saindo do sistema..."
         _   -> do
             putStrLn "Opção inválida. Tente novamente."

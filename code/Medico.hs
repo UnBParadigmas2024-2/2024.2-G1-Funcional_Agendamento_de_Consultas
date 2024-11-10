@@ -3,7 +3,7 @@ module Medico (submenuMedico) where
 import ApagarConta (apagarConta)
 import System.IO (hFlush, stdout)
 import ExibicaoDados (exibirDadosMedicos, atualizarDadosMedico)
-
+import Consulta (buscarConsulta)
 
 submenuMedico :: String -> IO ()
 submenuMedico crm = do

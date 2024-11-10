@@ -4,8 +4,9 @@ Arthur José Nascimento de Lima|senha789|12345678002|21|61987654321|arthur.lima@
 Artur Seppa Reiman|123456|15550032345|24|61982389773|artur.reiman@dominio.com
 Augusto Duraes Camargo|senha123|12345678003|23|61976543210|augusto.camargo@dominio.com
 Breno Henrique de Souza|senha852|12345678004|25|61965432109|breno.souza@dominio.com
-Edilberto Almeida Cantuaria|123456|12345678910|26|61912345678|edilberto.paradigmas@dominio.com
+Carlos Edilberto|123456|12345678910|24|11123456789|aa@aa.com
 Bruna Alcantara|senhasenha|12345678005|24|61954321098|bruna@gmail.com
 Guilherme Peixoto Lima|senha753|12345678006|27|61943210987|guilherme.lima@dominio.com
 Gustavo Barbosa de Oliveira|123456|12345678901|16|12345678901|gustavo@dominio.com
 Samuel Alves Sato|senha159|12345678007|29|61932109876|samuel.sato@dominio.com
+Alessandra Domingues|1123456|12345678911|25|61999861509|alcantara@giubs.com

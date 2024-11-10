@@ -47,6 +47,9 @@ buscaConsultas cpf = do
             buscaConsultas cpf
         
         "5" -> return ()  -- Retornando para o Menu Paciente sem importar diretamente o Paciente
+        _   -> do
+            putStrLn "Opção inválida. Tente novamente."
+            buscaConsultas cpf 
 
 -- Função para buscar consultas por CPF do paciente
 buscarPorCpf :: String -> IO ()

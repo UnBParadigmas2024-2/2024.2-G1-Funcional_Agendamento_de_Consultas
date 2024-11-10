@@ -4,7 +4,7 @@ import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition)
-import Util(validadorCpf, validadorData, validadorFormatoCRM)
+import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -33,7 +33,10 @@ cadastroConsulta cpfPaciente = do
     --     cadastroConsulta
     --     else return ()
 
-    crmMedico <- coletarCRM  
+    crmMedico <- escolherMedico
+    putStrLn crmMedico
+    -- crmMedico <- coletarCRM 
+
     medicoExiste <- verificarDuplicidadeCRM crmMedico
     if not medicoExiste then do 
         putStrLn "Médico não cadastrado. Verifique o CRM."

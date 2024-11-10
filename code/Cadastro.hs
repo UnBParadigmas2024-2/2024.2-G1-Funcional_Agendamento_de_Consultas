@@ -1,4 +1,4 @@
-module Cadastro (iniciarCadastro) where
+module Cadastro (iniciarCadastro, coletarNome, coletarSenha, coletarIdade, coletarTelefone, coletarEmail) where
 
 import System.IO (hFlush, stdout, appendFile, writeFile)
 import System.Directory (doesFileExist)

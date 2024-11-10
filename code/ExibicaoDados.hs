@@ -3,6 +3,7 @@ module ExibicaoDados (exibirDados, exibirDadosPacientes, exibirDadosMedicos, atu
 import System.IO (hFlush, stdout, appendFile, writeFile)
 import System.Directory (doesFileExist, removeFile, renameFile)
 import Data.List (isInfixOf)
+import Cadastro (coletarNome, coletarSenha, coletarIdade, coletarTelefone, coletarEmail)
 
 -- Função para exibir o conteúdo dos arquivos filtrando pelas linhas que contêm a string CRM
 exibirDados :: String -> IO ()
@@ -54,10 +55,8 @@ exibirDadosMedicos key = do
 atualizarDadosMedico :: String -> IO ()
 atualizarDadosMedico key = do
     putStrLn "\nAtualizando dados do médico:"
-    putStrLn "Digite o novo nome do médico:"
-    nomeMedico <- getLine
-    putStrLn "Digite a nova senha:"
-    senha <- getLine
+    nomeMedico <- coletarNome
+    senha <- coletarSenha
     putStrLn "Digite a nova especialidade:"
     especialidade <- getLine
 
@@ -83,16 +82,11 @@ atualizarDadosMedico key = do
 atualizarDadosPaciente :: String -> IO ()
 atualizarDadosPaciente key = do
     putStrLn "\nAtualizando dados do paciente:"
-    putStrLn "Digite o novo nome do paciente:"
-    nome <- getLine
-    putStrLn "Digite a nova senha:"
-    senha <- getLine
-    putStrLn "Digite a nova idade:"
-    idade <- getLine
-    putStrLn "Digite o novo telefone:"
-    telefone <- getLine
-    putStrLn "Digite o novo email:"
-    email <- getLine
+    nome <- coletarNome
+    senha <- coletarSenha
+    idade <- coletarIdade
+    telefone <- coletarTelefone
+    email <- coletarEmail
 
     -- Formata os novos dados do paciente
     let novosDados = nome ++ "|" ++ senha ++ "|" ++ key ++ "|" ++ idade ++ "|" ++ telefone ++ "|" ++ email

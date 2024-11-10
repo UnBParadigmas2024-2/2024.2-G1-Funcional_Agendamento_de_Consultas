@@ -1,4 +1,4 @@
-module Util (validadorCpf, validadorData, validadorFormatoCRM, escolherMedico) where
+module Util (validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis) where
 
 import Text.Regex (mkRegex, matchRegex)
 import Data.Char (isDigit)
@@ -57,4 +57,46 @@ escolherMedico = do
     if escolha > 0 && escolha <= length medicos
         then return (medicos !! (escolha - 1) !! 2)  -- Retorna o CRM
         else return "Número inválido."
+
+
+
+
+
+-- Função principal para encontrar horários disponíveis
+horariosDisponiveis :: String -> String -> IO [String]
+horariosDisponiveis dataDesejada crm = do
+    conteudo <- readFile "consultas.txt"
+    let linhas = tail (lines conteudo)  -- Remove o cabeçalho
+        consultas = map (splitLinha '|') linhas
+        horariosOcupados = [horario | [_, _, crmConsulta, _, _, dataConsulta, horario, _, _] <- consultas,
+                                       crmConsulta == crm, dataConsulta == dataDesejada]
+        horariosDisponiveisDia = gerarHorariosDisponiveis horariosOcupados
+    return horariosDisponiveisDia
+
+-- Gera horários disponíveis excluindo horários ocupados e o intervalo de almoço
+gerarHorariosDisponiveis :: [String] -> [String]
+gerarHorariosDisponiveis horariosOcupados =
+    let todosHorarios = [formatarHorario h m | h <- [8..17], m <- [0, 30], not (h == 12 || h == 13)]
+    in filter (`notElem` horariosOcupados) todosHorarios
+
+-- Formata um horário em "HH:MM"
+formatarHorario :: Int -> Int -> String
+formatarHorario h m = (if h < 10 then "0" else "") ++ show h ++ ":" ++ (if m == 0 then "00" else show m)
+
+
+-- Função para buscar o médico pelo CRM no arquivo medicos.txt
+buscarMedico :: String -> IO (Maybe [String])
+buscarMedico crmProcurado = do
+    conteudo <- readFile "medicos.txt"
+    let linhas = tail (lines conteudo)  -- Remove o cabeçalho
+        medicos = map (splitLinha '|') linhas
+    return $ find (\[_, _, crm, _] -> crm == crmProcurado) medicos
+
+-- Função para buscar o paciente pelo CPF no arquivo pacientes.txt
+buscarPaciente :: String -> IO (Maybe [String])
+buscarPaciente cpfProcurado = do
+    conteudo <- readFile "pacientes.txt"
+    let linhas = tail (lines conteudo)  -- Remove o cabeçalho
+        pacientes = map (splitLinha '|') linhas
+    return $ find (\[_, _, cpf, _, _, _] -> cpf == cpfProcurado) pacientes
 

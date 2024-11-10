@@ -4,7 +4,7 @@ import System.IO (hFlush, stdout, readFile, writeFile)
 import System.Directory (doesFileExist)
 import Text.Regex (mkRegex, matchRegex)
 import Data.List (isInfixOf, partition)
-import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico)
+import Util(validadorCpf, validadorData, validadorFormatoCRM, escolherMedico, horariosDisponiveis)
 
 submenuConsulta :: IO ()
 submenuConsulta = do
@@ -27,31 +27,51 @@ cadastroConsulta cpfPaciente = do
     putStrLn "\n\nCadastrar Consulta"
 
     crmMedico <- escolherMedico
+
+    putStrLn "Digite a data desejada (DD/MM/AAAA):"
+    dataDesejada <- getLine
     
-    putStrLn crmMedico
-    -- crmMedico <- coletarCRM 
+    if not (validadorData dataDesejada)
+        then putStrLn "Formato de data inválido. Use DD/MM/AAAA."
+        else do
+            horarios <- horariosDisponiveis dataDesejada crmMedico
+            if null horarios
+                then putStrLn "Não há horários disponíveis para essa data."
+                else do
+                    horarioEscolhido <- exibirHorariosESelecionar horarios
+                    case horarioEscolhido of
+                        Just horario -> putStrLn $ "Horário escolhido: " ++ horario
+                        Nothing -> putStrLn "Escolha inválida."
 
-    medicoExiste <- verificarDuplicidadeCRM crmMedico
-    if not medicoExiste then do 
-        putStrLn "Médico não cadastrado. Verifique o CRM."
-        cadastroConsulta cpfPaciente
-        else return ()
 
-    dataConsulta <- coletarDataConsulta  
-    horarioConsulta <- coletarHorarioConsulta  
-    statusConsulta <- coletarStatusConsulta  
-    tipoConsulta <- coletarTipoConsulta  
+--    dataConsulta <- coletarDataConsulta  
+--    horarioConsulta <- coletarHorarioConsulta  
+--    statusConsulta <- coletarStatusConsulta  
+--    tipoConsulta <- coletarTipoConsulta  
+--
+--    let novaConsulta = cpfPaciente ++ "|" ++ crmMedico ++ "|" ++ dataConsulta ++ "|" ++ horarioConsulta ++ "|" ++ statusConsulta ++ "|" ++ tipoConsulta ++ "\n"
+--    let cabecalho = "CPF|CRM|Data|Horário|Status|Tipo\n"
+--
+--    -- Verifica se o arquivo existe, se não existir, cria um novo com o cabeçalho
+--    arquivoExistente <- doesFileExist "consultas.txt"
+--    if not arquivoExistente
+--        then writeFile "consultas.txt" (cabecalho ++ novaConsulta) 
+--        else appendFile "consultas.txt" novaConsulta 
+--    
+--    putStrLn "Consulta cadastrada com sucesso!"
 
-    let novaConsulta = cpfPaciente ++ "|" ++ crmMedico ++ "|" ++ dataConsulta ++ "|" ++ horarioConsulta ++ "|" ++ statusConsulta ++ "|" ++ tipoConsulta ++ "\n"
-    let cabecalho = "CPF|CRM|Data|Horário|Status|Tipo\n"
+-- Exibe a lista enumerada de horários e permite escolher um
+exibirHorariosESelecionar :: [String] -> IO (Maybe String)
+exibirHorariosESelecionar horarios = do
+    putStrLn "Horários disponíveis:"
+    mapM_ (\(i, horario) -> putStrLn $ show i ++ ". " ++ horario) (zip [1..] horarios)
+    putStrLn "Digite o número do horário desejado:"
+    escolha <- getLine
+    let indice = read escolha - 1
+    if indice >= 0 && indice < length horarios
+        then return $ Just (horarios !! indice)
+        else return Nothing
 
-    -- Verifica se o arquivo existe, se não existir, cria um novo com o cabeçalho
-    arquivoExistente <- doesFileExist "consultas.txt"
-    if not arquivoExistente
-        then writeFile "consultas.txt" (cabecalho ++ novaConsulta) 
-        else appendFile "consultas.txt" novaConsulta 
-    
-    putStrLn "Consulta cadastrada com sucesso!"
 
 -- Função para coletar a data da consulta
 coletarDataConsulta :: IO String

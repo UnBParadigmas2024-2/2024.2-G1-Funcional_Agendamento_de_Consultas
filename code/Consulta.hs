@@ -12,7 +12,7 @@ submenuConsulta = do
     putStrLn "1. Cadastrar consulta"
     putStrLn "2. Buscar consulta"
     
-    putStr "Escolha uma opção: "
+    putStr "\nEscolha uma opção: "
     hFlush stdout
     escolha <- getLine
     case escolha of

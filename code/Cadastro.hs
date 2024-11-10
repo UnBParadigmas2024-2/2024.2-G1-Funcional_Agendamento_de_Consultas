@@ -59,7 +59,7 @@ adicionarDadosMedicos = do
     especialidade <- coletarEspecialidade
 
     let novoMedico = nomeMedico ++ "|" ++ senha ++ "|" ++ crm ++ "|" ++ especialidade ++ "\n"
-    let cabecalho = "Nome|CRM|Especialidade\n"
+    let cabecalho = "Nome|Senha|CRM|Especialidade\n"
 
     -- Verifica se o arquivo existe; se não, cria um novo com o cabeçalho
     arquivoExistente <- doesFileExist "medicos.txt"

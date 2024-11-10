@@ -43,7 +43,7 @@ Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcioname
 
 ### Uso 
 ### Manual
-**Principais Comandos**: ``ghc -o SistemaGestao Main.hs Cadastro.hs`` ;  ``./SistemaGestao`` 
+**Principais Comandos**: ``ghc -o SistemaGestao Main.h`` ;  ``./SistemaGestao`` 
 
 #### Como usar o projeto
 1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
@@ -70,11 +70,26 @@ Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
 
 
 ## Outros 
-Quaisquer outras informações sobre o projeto podem ser descritas aqui. Não esqueça, entretanto, de informar sobre:
-(i) Lições Aprendidas:
-(ii) Percepções:
-(iii) Contribuições e Fragilidades:
-(iV) Trabalhos Futuros:
+### Lições Aprendidas
+- A prioridade deve ser montar um fluxograma fechado, para não haver problemas de comunicação ao longo do desenvolvimento do sistema;
+- Melhorar a gestão de tempo é essencial para as coisas não serem feitas com pressa de última hora;
+- É necessário deixar todos os requisitos bem claros e documentados, para evitar mudanças no escopo do projeto.
+  
+### Percepções
+- A linguagem haskell é complicada para compreensão e leitura;
+- Compilar um arquivo em haskell é trabalhoso;
+- A sintaxe da linguagem é complexa;
+- O paradigma funcional é bem modularizado, o que auxilia no desenvolvimento do código.
+
+### Contribuições e Fragilidades
+- Contribuições: implementado um sistema de agendamento de consultas completo e funcional, com CRUD de paciente, médicos e consultas;
+- Fragilidades: Dificuldade em se adaptar ao novo paradigma de programação e ao novo grupo de trabalho.
+
+### Trabalhos Futuros
+Como o escopo do trabalho foi finalizado, segue abaixo algumas ideias de futuros possíveis trabalhos em haskell a serem feitos:
+- Jogo da Cobrinha;
+- Sistema de Recomendação de Filmes;
+- Labirinto.
 
 ## Fontes
 [1] Costa, S. (2020, 17 de abril). *Paradigma funcional*. Medium. Disponível em: https://sergiocosta.medium.com/paradigma-funcional-3194924a8d20

@@ -3,6 +3,8 @@ module Main where
 import System.IO (hFlush, stdout)
 import Cadastro (iniciarCadastro)
 import Login (login)
+import Consulta(submenuConsulta)
+import Agenda(buscaConsultas)
 
 main :: IO ()
 main = do

@@ -1,10 +1,12 @@
-Nome|CRM|Especialidade
+Nome|Senha|CRM|Especialidade
 medico1 qwe|123456|CRM/DF 123456|Geral
-João Silva|CRM/SP 654321|Cardiologista
-Maria Oliveira|CRM/SP 789012|Pediatra
-Carlos Souza|CRM/SP 345678|Dermatologista
-Ana Costa|CRM/SP 901234|Neurologista
-Pedro Lima|CRM/SP 567890|Ortopedista
-Beatriz Rocha|CRM/SP 234567|Ginecologista
-Lucas Mendes|CRM/SP 890123|Oftalmologista
-Carolina Pinto|CRM/SP 123789|Endocrinologista
+João Silva|123456|CRM/SP 654321|Cardiologista
+Maria Oliveira|123456|CRM/SP 789012|Pediatra
+Carlos Souza|123456|CRM/SP 345678|Dermatologista
+Ana Costa|123456|CRM/SP 901234|Neurologista
+Pedro Lima|123456|CRM/SP 567890|Ortopedista
+Beatriz Rocha|123456|CRM/SP 234567|Ginecologista
+Lucas Mendes|123456|CRM/SP 890123|Oftalmologista
+Carolina Pinto|123456|CRM/SP 123789|Endocrinologista
+doutor teste|123456|CRM/SP 123987|pedi
+sdf adfg |123456|CRM/SP 123123|cardio

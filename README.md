@@ -102,6 +102,7 @@ Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
 - A prioridade deve ser montar um fluxograma fechado, para não haver problemas de comunicação ao longo do desenvolvimento do sistema;
 - Melhorar a gestão de tempo é essencial para as coisas não serem feitas com pressa de última hora;
 - É necessário deixar todos os requisitos bem claros e documentados, para evitar mudanças no escopo do projeto.
+- ⁠Escolher um projeto com menos co-dependências entre as funcionalidades, para melhor gestão de tempo e de equipe
 
 ### Percepções
 

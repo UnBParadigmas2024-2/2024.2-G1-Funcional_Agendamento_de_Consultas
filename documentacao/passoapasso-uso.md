@@ -62,7 +62,7 @@ Após tê-lo rodando:
     
     ![Login Paciente](./assets/login-paciente.gif)
 
-- Se entrar como médico:
+3. Menu médico médico:
   - Visualize e altere seus dados: 
   
       ![Visualizando Dados](./assets/visualizar-dados-medico.gif)
@@ -77,7 +77,7 @@ Após tê-lo rodando:
   
       ![Desmarcando Consulta](./assets/desmarcar-consulta-medico.gif)
     
-- Se entrar como paciente:
+4. Menu paciente:
   - Visualize e altere seus dados:
     
       ![Visualizando Dados](./assets/visualizar-dados-paciente.gif)

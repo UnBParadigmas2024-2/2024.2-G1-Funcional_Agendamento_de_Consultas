@@ -114,7 +114,7 @@ Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
 ### Contribuições e Fragilidades
 
 - Contribuições: implementado um sistema de agendamento de consultas completo e funcional, com CRUD de paciente, médicos e consultas;
-- Fragilidades: Dificuldade em se adaptar ao novo paradigma de programação e ao novo grupo de trabalho.
+- Fragilidades: Dificuldade em se adaptar ao novo paradigma de programação e ao novo grupo de trabalho e as funções co-dependentes do trabalho causaram um atraso no desenvolvimento do projeto pela equipe
 
 ### Trabalhos Futuros
 

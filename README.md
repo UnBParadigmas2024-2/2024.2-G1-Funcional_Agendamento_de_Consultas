@@ -108,7 +108,6 @@ A análise do projeto em questão revela a necessidade de aprimoramentos tanto e
 - **Funcionalidde** Funçoes de buscar consultas do paciente por data ou por medico ficaram de serem implementadas.
 - **Funcionalidde** Deleção de médicos ficou por ser implementada.
 
-- 
 Como sugestão para trabalhos futuros, além do presente projeto, propõem-se as seguintes implementações em Haskell:
 - Jogo da Cobrinha: Desenvolvimento de um jogo clássico, explorando conceitos de programação funcional e estruturas de dados.
 - Sistema de Recomendação de Filmes: Implementação de um sistema capaz de sugerir filmes aos usuários com base em seus históricos e preferências, utilizando técnicas de aprendizado de máquina.

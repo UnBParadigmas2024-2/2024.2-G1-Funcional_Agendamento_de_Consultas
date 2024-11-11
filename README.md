@@ -44,8 +44,7 @@ Saiba mais sobre a escolha do projeto através [desse link](documentacao/motivos
 ## Screenshots
 
 ### Fluxograma do Projeto
-
-![fluxos (1)](https://github.com/user-attachments/assets/4363c36c-7dbf-41db-bc0a-f9a72384e6cf)
+![fluxos (2)](https://github.com/user-attachments/assets/e256da06-b37a-40f4-b3c9-d509dcdf911c)
 
 - OBS: Para maior detalhamento de cada funcionalidade, acesse [esse link](documentacao/uso-sistema.md)
 
@@ -123,7 +122,7 @@ A análise do projeto em questão revela a necessidade de aprimoramentos tanto e
 
 - **Usabilidade:** Atualmente, o processo de atualização de dados exige que o usuário percorra todos os campos do registro, mesmo quando apenas um necessita de modificação. Essa característica pode gerar frustração e aumentar o tempo de execução da tarefa. A implementação de uma funcionalidade que permita a edição individual de campos proporcionaria uma experiência de usuário mais intuitiva e eficiente.
 - **Arquitetura:** A presença de uma dependência circular na arquitetura do sistema resultou em um *bug*, evidenciando a importância de um planejamento mais cuidadoso e de uma documentação completa dos requisitos. A revisão da arquitetura, com o objetivo de eliminar essa dependência, é fundamental para garantir a robustez e a manutenibilidade do sistema a longo prazo.
-- **Funcionalidde** Deleção de médicos ficou por ser implementada em uma atualização futura.
+- **Funcionalidade** Deleção de médicos ficou por ser implementada em uma atualização futura.
 
 Como sugestão para trabalhos futuros, além do presente projeto, propõem-se as seguintes implementações em Haskell:
 

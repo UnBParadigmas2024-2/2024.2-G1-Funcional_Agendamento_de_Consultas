@@ -40,3 +40,56 @@
 ```bash
  cabal run
 ```
+
+
+# Passo a Passo de como usar o sistema funcional
+Primeiramente, para usar o sistema, inicialmente rode-o segundo o [passo a passo](documentacao/passoapasso-uso.md).
+Após tê-lo rodando:
+
+1. Cadastre-se:
+
+    ![Cadastro de Médico](./assets/cadastro-medico.gif)
+    
+    ![Cadastro de Paciente](./assets/cadastro-paciente.gif)
+
+2. Faça Login:
+
+   Login como médico
+
+    ![Login Médico](./assets/login-medico.gif)
+
+   Login como Paciente
+    
+    ![Login Paciente](./assets/login-paciente.gif)
+
+- Se entrar como médico:
+  - Visualize e altere seus dados: 
+  
+      ![Visualizando Dados](./assets/visualizar-dados-medico.gif)
+
+      ![Alterando Dados](./assets/alterar-dados-medico.gif)
+    
+  - Visualize sua agenda:
+    
+      ![Visualizando Consultas](./assets/visualizar-consultas-medico.gif)
+
+  - Desmarque consulta
+  
+      ![Desmarcando Consulta](./assets/desmarcar-consulta-medico.gif)
+    
+- Se entrar como paciente:
+  - Visualize e altere seus dados:
+    
+      ![Visualizando Dados](./assets/visualizar-dados-paciente.gif)
+    
+      ![Alterando Dados](./assets/alterar-dados-paciente.gif)
+    
+  - Visualize suas consultas agendadas e marque novas consultas:
+  
+      ![Visualizando Consultas](./assets/visualizar-consultas-paciente.gif)
+  
+      ![Agendando Nova Consulta](./assets/gifs/agendar-consulta-paciente.gif)
+    
+  - Apague sua conta:
+    
+      ![Apagando Conta](./assets/gifs/apagar-conta-paciente.gif)

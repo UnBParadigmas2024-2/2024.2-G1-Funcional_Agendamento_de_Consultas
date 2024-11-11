@@ -61,10 +61,10 @@ Saiba mais sobre a escolha do projeto através [desse link](documentacao/motivos
 
 ### Manual
 
-**Principais Comandos**: `ghc -o SistemaGestao Main.h` ; `./SistemaGestao` ; `cabal install` ; `cabal build` ; `cabal run`
+**Principais Comandos**: `ghc -o SistemaGestao Main.hs` ; `./SistemaGestao` ; `cabal install` ; `cabal build` ; `cabal run`
 
 #### Como usar o projeto
-
+s
 1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
 2. Para aprender como utilizar o sistema em si acesse [esse link](documentacao/uso-sistema.md)
 

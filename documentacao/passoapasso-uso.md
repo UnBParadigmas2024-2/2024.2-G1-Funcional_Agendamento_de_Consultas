@@ -54,11 +54,11 @@ Após tê-lo rodando:
 
 2. Faça Login:
 
-   Login como médico
+   - Login como médico
 
     ![Login Médico](./assets/login-medico.gif)
 
-   Login como Paciente
+   - Login como Paciente
     
     ![Login Paciente](./assets/login-paciente.gif)
 
@@ -84,9 +84,11 @@ Após tê-lo rodando:
     
       ![Alterando Dados](./assets/alterar-dados-paciente.gif)
     
-  - Visualize suas consultas agendadas e marque novas consultas:
+  - Visualize suas consultas agendadas:
   
       ![Visualizando Consultas](./assets/visualizar-consultas-paciente.gif)
+
+  - marque novas consultas
   
       ![Agendando Nova Consulta](./assets/gifs/agendar-consulta-paciente.gif)
     

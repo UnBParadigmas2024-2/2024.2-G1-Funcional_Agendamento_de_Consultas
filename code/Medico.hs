@@ -20,8 +20,10 @@ submenuMedico crm = do
             exibirDadosMedicos crm
             submenuMedico crm  -- Retorna ao submenu após exibir os dados
         "2" -> do
-            apagarConta crm "medicos" -- Chama a função para apagar a conta
-            putStrLn "Conta apagada com sucesso!"
+            -- apagarConta crm "medicos" -- Chama a função para apagar a conta
+            putStrLn "Não implementado!"
+            submenuMedico crm
+
         "3" -> do
             buscarConsultaMedico crm
             submenuMedico crm

@@ -13,9 +13,9 @@ buscaConsultas cpf = do
     putStrLn "\nDigite a opção que prefere:"
     putStrLn "1. Agendar nova consulta"
     putStrLn "2. Buscar por todas as suas consultas"
-  --  putStrLn "3. Buscar por Data"
-  --  putStrLn "4. Buscar por Médico"
-    putStrLn "3. Voltar para Menu Principal"  
+    putStrLn "3. Buscar por Data"
+    putStrLn "4. Buscar por Médico"
+    putStrLn "5. Voltar para Menu Principal"  
     putStr "Digite sua escolha: "
     hFlush stdout
     escolha <- getLine
@@ -27,26 +27,24 @@ buscaConsultas cpf = do
             buscarPorCpf cpf
             buscaConsultas cpf  
 
-    --    "3" -> do   
-    --        putStr "Informe a data (DD/MM/AAAA): "
-    --        hFlush stdout
-    --        dataConsulta <- getLine
-    --        if validadorData dataConsulta
-    --            then do
-    --                buscarPorData dataConsulta 
-    --                buscaConsultas cpf
-    --            else do
-    --                putStrLn "Data inválida"
-    --                buscaConsultas cpf 
+        "3" -> do   
+            putStr "Informe a data (DD/MM/AAAA): "
+            hFlush stdout
+            dataConsulta <- getLine
+            if validadorData dataConsulta
+                then do
+                    buscarPorMedico dataConsulta cpf
+                else do
+                    putStrLn "Data inválida"
+                    buscaConsultas cpf 
 
-     --   "4" -> do
-     --       putStr "Informe o CRM ou nome do médico: "
-     --       hFlush stdout
-     --       valor <- getLine
-     --       buscarPorMedico valor
-     --       buscaConsultas cpf
+        "4" -> do
+            putStr "Informe o CRM ou nome do médico: "
+            hFlush stdout
+            valor <- getLine
+            buscarPorMedico valor cpf
         
-        "3" -> return ()  -- Retornando para o Menu Paciente sem importar diretamente o Paciente
+        "5" -> return ()  -- Retornando para o Menu Paciente sem importar diretamente o Paciente
         _   -> do
             putStrLn "Opção inválida. Tente novamente."
             buscaConsultas cpf 

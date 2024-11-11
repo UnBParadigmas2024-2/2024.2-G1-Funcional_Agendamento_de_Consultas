@@ -46,7 +46,7 @@ Saiba mais sobre a escolha do projeto através [desse link](documentacao/motivos
 ### Fluxograma do Projeto
 ![fluxos (2)](https://github.com/user-attachments/assets/e256da06-b37a-40f4-b3c9-d509dcdf911c)
 
-- OBS: Para maior detalhamento de cada funcionalidade, acesse [esse link](documentacao/uso-sistema.md)
+- OBS: Para maior detalhamento de cada funcionalidade, acesse [esse link](documentacao/passoapasso-uso.md)
 
 ## Manual
 
@@ -64,7 +64,7 @@ Saiba mais sobre a escolha do projeto através [desse link](documentacao/motivos
 **Principais Comandos**: `ghc -o SistemaGestao Main.hs` ; `./SistemaGestao` ; `cabal install` ; `cabal build` ; `cabal run`
 
 #### Como usar o projeto
-s
+
 1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
 2. Para aprender como utilizar o sistema em si acesse [esse link](documentacao/uso-sistema.md)
 

@@ -60,15 +60,15 @@ buscarPorData :: String -> IO ()
 buscarPorData dataConsulta = buscar dataConsulta "consultas.txt"
 
 -- Função para buscar consultas por CRM ou nome do médico
-buscarPorMedico :: String -> IO ()
-buscarPorMedico valor = do
-    maybeMedico <- obterMedico valor
-    case maybeMedico of
-        Just (nome, especialidade) -> do
-            putStrLn $ "Médico: " ++ nome
-            putStrLn $ "Especialidade: " ++ especialidade
-            buscar valor "consultas.txt"  -- Passa o nome ou CRM para buscar
-        Nothing -> putStrLn "Médico não encontrado."
+-- buscarPorMedico :: String -> IO ()
+-- buscarPorMedico valor = do
+--     maybeMedico <- obterMedico valor
+--     case maybeMedico of
+--         Just (nome, especialidade) -> do
+--             putStrLn $ "Médico: " ++ nome
+--             putStrLn $ "Especialidade: " ++ especialidade
+--             buscar valor "consultas.txt"  -- Passa o nome ou CRM para buscar
+--         Nothing -> putStrLn "Médico não encontrado."
 
 -- Função genérica para buscar dados em arquivo
 buscar :: String -> FilePath -> IO ()
@@ -113,3 +113,10 @@ parseMedico :: String -> (String, String)  -- Retorna nome e CRM
 parseMedico linha = 
     let [nome, _, crm, especialidade] = wordsWhen (== '|') linha
     in (nome, crm)  -- Retorna nome e CRM
+
+
+buscarPorMedico :: String -> String -> IO ()
+buscarPorMedico val1 val2 = do
+    conteudo <- readFile "consultas.txt"
+    let (linhas, dados) = partition (\linha -> val1 `isInfixOf` linha && val2 `isInfixOf` linha) (lines conteudo)
+    mapM_ exibirConsulta linhas

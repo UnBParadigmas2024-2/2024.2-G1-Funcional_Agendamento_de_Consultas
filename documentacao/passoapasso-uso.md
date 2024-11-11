@@ -18,13 +18,24 @@
  cd code
 ```
 
-- Passo 3. Compile o projeto e instale as dependências com:
+- Passo 3.  Execute o compilador do projeto:
+
+```bash
+ ghc -o SistemaGestao Main.hs 
+ ```
+
+- 3.1 Ou Compile o projeto e instale as dependências com:
 
 ```bash
  cabal build
 ```
+- Passo 4. Rode o projeto:
 
-- Passo 4. Após o build inicie o projeto com:
+ ```bash
+ ./SistemaGestao 
+```  
+  
+- 4.1 Ou Após o build inicie o projeto com:
 
 ```bash
  cabal run

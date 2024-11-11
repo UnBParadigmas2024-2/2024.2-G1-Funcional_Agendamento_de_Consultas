@@ -12,3 +12,4 @@ João Souza|pass456|CRM/CE 567891|psiquiatra
 Lívia Ferreira|senha951|CRM/GO 876543|reumatologista
 Mauro Rocha|med951|CRM/GO 876543|oncologista
 Nathan Almeida|123456|CRM/DF 987654|Hematologista
+Gustavo Ferreira|123456|CRM/SP 234567|Odonto

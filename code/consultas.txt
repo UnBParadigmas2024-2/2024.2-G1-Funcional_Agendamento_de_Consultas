@@ -17,3 +17,4 @@ Gustavo Barbosa de Oliveira|12345678901|CRM/PE 432198|Isabela Costa|endocrinolog
 Samuel Alves Sato|12345678007|CRM/BA 654123|Gabriela Lima|neurologista|18/07/2024|13:00|agendada|presencial
 Samuel Alves Sato|12345678007|CRM/BA 654123|Gabriela Lima|neurologista|25/08/2024|14:00|concluída|online
 Edilberto Almeida Cantuaria|12345678910|CRM/SP 123456|Alice Santos|cardiologista|15/12/2024|08:00|agendada|online
+Clarissa Ribeiro|12345678945|CRM/SP 123456|Alice Santos|cardiologista|15/12/2024|08:30|agendada|online

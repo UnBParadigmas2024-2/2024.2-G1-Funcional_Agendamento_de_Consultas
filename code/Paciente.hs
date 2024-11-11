@@ -21,7 +21,7 @@ submenuPaciente cpf = do
             exibirDadosPacientes cpf
             submenuPaciente cpf
         "2" -> do
-            apagarConta cpf  -- Chama a função para apagar a conta
+            apagarConta cpf "pacientes" -- Chama a função para apagar a conta
             putStrLn "Conta apagada com sucesso!"
         "3" -> do
             buscaConsultas cpf

@@ -105,7 +105,10 @@ A análise do projeto em questão revela a necessidade de aprimoramentos tanto e
 
 - **Usabilidade:** Atualmente, o processo de atualização de dados exige que o usuário percorra todos os campos do registro, mesmo quando apenas um necessita de modificação. Essa característica pode gerar frustração e aumentar o tempo de execução da tarefa. A implementação de uma funcionalidade que permita a edição individual de campos proporcionaria uma experiência de usuário mais intuitiva e eficiente.
 - **Arquitetura:** A presença de uma dependência circular na arquitetura do sistema resultou em um *bug*, evidenciando a importância de um planejamento mais cuidadoso e de uma documentação completa dos requisitos. A revisão da arquitetura, com o objetivo de eliminar essa dependência, é fundamental para garantir a robustez e a manutenibilidade do sistema a longo prazo.
+- **Funcionalidde** Funçoes de buscar consultas do paciente por data ou por medico ficaram de serem implementadas.
+- **Funcionalidde** Deleção de médicos ficou por ser implementada.
 
+- 
 Como sugestão para trabalhos futuros, além do presente projeto, propõem-se as seguintes implementações em Haskell:
 - Jogo da Cobrinha: Desenvolvimento de um jogo clássico, explorando conceitos de programação funcional e estruturas de dados.
 - Sistema de Recomendação de Filmes: Implementação de um sistema capaz de sugerir filmes aos usuários com base em seus históricos e preferências, utilizando técnicas de aprendizado de máquina.

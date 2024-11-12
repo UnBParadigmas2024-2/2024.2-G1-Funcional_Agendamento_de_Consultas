@@ -65,8 +65,7 @@ Saiba mais sobre a escolha do projeto através [desse link](documentacao/motivos
 
 #### Como usar o projeto
 
-1. Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
-2. Para aprender como utilizar o sistema em si acesse [esse link](documentacao/uso-sistema.md)
+- Para conseguir rodar o projeto, acesse [esse link](documentacao/passoapasso-uso.md)
 
 ## Vídeo
 
